@@ -1,0 +1,294 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$sakai-ng-primary: mat.define-palette(mat.$indigo-palette);
+$sakai-ng-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$sakai-ng-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$sakai-ng-theme: mat.define-light-theme((
+  color: (
+    primary: $sakai-ng-primary,
+    accent: $sakai-ng-accent,
+    warn: $sakai-ng-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($sakai-ng-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+
+/* Demos */
+@import "assets/demo/styles/flags/flags.css";
+@import "assets/demo/styles/badges.scss";
+
+.layout-sidebar{
+    left:0;
+    top: 5rem;
+    box-shadow: unset;
+    border-radius: unset;
+    height: 100%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.invalid-feedback {
+  color: #e24c4c;
+  font-size: .875em;
+}
+.ng-dirty.ng-invalid {
+  border-color: #e24c4c !important;
+  color: #e24c4c !important;
+
+}
+.is-invalid{
+  border-color: #e24c4c
+}
+p-dropdown.ng-dirty.ng-invalid > .p-dropdown{
+  border-color: #e24c4c
+}
+p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext{
+  border-color: #e24c4c
+}
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
+  border-color: #e24c4c
+}
+
+.field > label{
+  font-weight: 500;
+}
+.alert-danger {
+  background-color: unset;
+  color: #c9d1d9;
+  border-color: rgba(248,81,73,0.4);
+  background-image: linear-gradient(rgba(248,81,73,0.15), rgba(248,81,73,0.15));
+}
+.layout-topbar .layout-topbar-button:focus{
+  box-shadow: none;
+}
+.layout-topbar .layout-topbar-logo:focus{
+  box-shadow: none;
+}
+.layout-menu ul a:focus{
+  box-shadow: none;
+}
+.p-datatable .p-sortable-column.p-highlight:hover{
+  box-shadow: none;
+}
+.p-datatable .p-sortable-column:focus{
+  box-shadow: none;
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon:focus{
+  box-shadow: none;
+}
+.p-button.p-button-icon-only.p-button-rounded:focus{
+  box-shadow: none;
+
+}
+.layout-topbar .layout-topbar-logo img{
+  height: 3.5rem;
+}
+.tk_margin_0{
+  margin:0;
+}
+.layout-main-container{
+  padding:7rem 2rem 2rem 2rem;
+}
+
+
+.loading-container {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  // background-color: rgb(64 81 98 / 46%);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.loading-speeding-wheel {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 63px;
+  height: 63px;
+  margin: 0 auto;
+  border: 5px solid #8dd0ff;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: loading-spin 500ms infinite linear;
+  -o-animation: loading-spin 500ms infinite linear;
+  -ms-animation: loading-spin 500ms infinite linear;
+  -webkit-animation: loading-spin 500ms infinite linear;
+  -moz-animation: loading-spin 500ms infinite linear;
+}
+@keyframes loading-spin {
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loading-spin {
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+} 
+@-ms-keyframes loading-spin {
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes loading-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes loading-spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.tk_header{
+  margin-bottom: 2rem;
+}
+.tk_display_none{
+  display:none;
+}
+.p-overflow-hidden{
+  overflow:auto;
+}
+.p-toast.p-toast-top-right{
+  top:0
+}
+.tk_header{
+  background: unset;
+  border:unset;
+  padding:0;
+  justify-content: right !important;
+}
+.tk_button_search{
+  width:auto
+}
+.tk_none_border.p-inputtext{
+  border-radius: 0;
+}
+.p-datatable .p-datatable-thead > tr > th{
+  background-color: rgb(33 38 46);
+}
+.scrollToTop {
+  padding: 10px;
+  text-align: center;
+  font-weight: 700;
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  left: auto;
+  z-index: 999999999;
+  box-sizing: border-box;
+  color: #3f4b5b;
+  font-size: 40px;
+}
+.scrollToTop:hover{
+  color: #303844;
+}
+.atk_pointer{
+  cursor: pointer;
+}
+.atk_margin_bottom_15{
+  margin-bottom: 15px;
+}
+.layout-footer{
+  padding-top:2rem;
+}
+.atk_hasExpansion{
+  background-color: #3f4b5b;
+}
+.atk_badge_success{
+  color:#256029 !important;
+  font-weight: 500;
+  background-color: #C8E6C9 !important;
+}
+.atk_badge_error{
+  background: #FFCDD2!important;
+  color: #c63737!important;
+}
+.p-badge{
+    // border-radius: 2px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #2a323d;
+}
+::-webkit-scrollbar-thumb {
+  background: #505a66;
+}
+
+
+// medai screen
+@media (max-width: 768px) {
+  .p-dialog{
+    width: 75% !important;
+  }
+}
+.p-dialog{
+  width: 35%;
+}
+
+@media screen and (min-width:768px) {
+  .display_flex{
+    display: flex !important;
+  }
+}
+@media screen and (min-width: 100px) and (max-width:767px) {
+  .atk_width{
+    width: 80%;
+  }
+}

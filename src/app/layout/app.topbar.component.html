@@ -1,0 +1,29 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" href="/" style="justify-content: center;">
+        <img src="assets/images/logo3.png" alt="logo">
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+    
+    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}" style="align-items: center;">
+        <!-- <p-splitButton label="Save" icon="pi pi-plus" [model]="items"></p-splitButton> -->
+        <!-- <button class="p-link layout-topbar-button">
+            <img src="assets/images/avatar.png" width="30" height="30">
+        </button>
+        {{username}} -->
+
+        <button class="p-link layout-topbar-button" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+</div>
+<div class="loading-container" *ngIf="isLoadingResults">
+    <div class="loading-speeding-wheel"></div>
+</div>
