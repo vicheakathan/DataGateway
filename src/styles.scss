@@ -47,7 +47,9 @@ $gutter: 1rem; //for primeflex grid system
 /* Demos */
 @import "assets/demo/styles/flags/flags.css";
 @import "assets/demo/styles/badges.scss";
-
+:root{
+  --background_color: #eff3f8;
+}
 .layout-sidebar{
     left:0;
     top: 5rem;
@@ -58,6 +60,9 @@ $gutter: 1rem; //for primeflex grid system
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+body.light-theme{
+  background-color: var(--background_color);
+}
 
 .invalid-feedback {
   color: #e24c4c;

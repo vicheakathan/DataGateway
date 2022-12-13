@@ -32,7 +32,7 @@
                         <th>Tenant</th>
                         <th>Status</th>
                         <th>Error Log</th>
-                        <th style="width:21%">Sale Transaction Id</th>
+                        <!-- <th style="width:21%">Sale Transaction Id</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-transactionModel let-expanded="expanded">
@@ -59,33 +59,32 @@
                         </td>
                         <td>
                             <div *ngIf="transactionModel.isSuccess == false && transactionModel.dataError != '' ">
-                                <button type="button" pButton pRipple [pRowToggler]="transactionModel" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                                <button type="button" [id]="transactionModel.id" pButton pRipple [pRowToggler]="transactionModel" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                                 </button>
                             </div>
                         </td>
-                        <td style="width:20%; min-width:10rem;">
+                        <!-- <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">taskId</span>
                             {{ transactionModel.saleTransactionId }}
-                        </td>
+                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-transactionModel>
                     <tr>
-                        <td colspan="7" class="atk_hasExpansion">
+                        <td colspan="10" class="atk_hasExpansion">
                             <p-table [value]="transactionModel.dataError" dataKey="id" [scrollable]="true" scrollHeight="550px" responsiveLayout="scroll" >
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th>id</th>
-                                        <!-- <th>Date</th>
-                                        <th>Message</th>
-                                        <th>Data</th> -->
+                                        <th >Date</th>
+                                        <th >Message</th>
+                                        <th >Data</th>
                                     </tr>
                                 </ng-template>
-                                <ng-template pTemplate="body" *ngFor="let item of transactionModel.dataError;">
+                                <ng-template pTemplate="body" let-dataError>
                                     <tr>
-                                        <td>{{item.id}}</td>
-                                        <!-- <td>{{item.dateLog | date : 'd/MM/yyyy, h:mm a'}}</td>
-                                        <td>{{item.errorLogs}}</td> -->
+                                        <td >{{dataError.dateLog | date : 'd/MM/yyyy, h:mm a'}}</td>
+                                        <td >{{dataError.errorLogs}}</td>
+                                        <td >{{dataError.datalog}}</td>
                                     </tr>
                                 </ng-template>
                             </p-table>

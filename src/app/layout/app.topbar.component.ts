@@ -29,4 +29,9 @@ export class AppTopBarComponent {
         }, 1000);
         
     }
+
+    toggleDarkTheme(): void {
+        document.body.classList.toggle('light-theme');
+        console.log('==');
+     }
 }

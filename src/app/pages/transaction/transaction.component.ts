@@ -139,7 +139,7 @@ export class TransactionComponent implements OnInit {
     let worksheet = workbook.addWorksheet("List Transaction");
     var rowHeight = 30;
     // header-----------------
-      let header = ["Date","Tenant", "Status","Error Log"," Sale Transaction Id"];
+      let header = ["Date","Tenant", "Status","Error Log"];
       let headerRow = worksheet.addRow(header);
       headerRow.eachCell(cell => {
         cell.font = {
@@ -195,7 +195,7 @@ export class TransactionComponent implements OnInit {
                 } else 
                   temp.push("");
 
-                temp.push(selectData[i]['saleTransactionId']);
+                // temp.push(selectData[i]['saleTransactionId']);
                 
                 worksheet.addRow(temp);
 
@@ -224,4 +224,5 @@ export class TransactionComponent implements OnInit {
         this._messageService.add({ severity: 'error', summary: 'Error', detail: "Please select at least one transaction", life: 2000 });
   }
   
+
 }

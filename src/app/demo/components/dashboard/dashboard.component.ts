@@ -3,11 +3,10 @@ import { MenuItem } from 'primeng/api';
 import { Product } from '../../api/product';
 import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
-// import { LayoutService } from './layout/service/app.layout.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
-    templateUrl: './dashboard.component.html', 
+    templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -22,19 +21,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     subscription!: Subscription;
 
     constructor(private productService: ProductService, public layoutService: LayoutService) {
-        // this.subscription = this.layoutService.configUpdate$.subscribe(() => {
-        //     this.initChart();
-        // });
+        this.subscription = this.layoutService.configUpdate$.subscribe(() => {
+            this.initChart();
+        });
     }
 
     ngOnInit() {
-        // this.initChart();
-        // this.productService.getProductsSmall().then(data => this.products = data);
+        this.initChart();
+        this.productService.getProductsSmall().then(data => this.products = data);
 
-        // this.items = [
-        //     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-        //     { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-        // ];
+        this.items = [
+            { label: 'Add New', icon: 'pi pi-fw pi-plus' },
+            { label: 'Remove', icon: 'pi pi-fw pi-minus' }
+        ];
     }
 
     initChart() {
