@@ -14,7 +14,6 @@ import { CompanyModel } from 'src/app/models/company';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company.service';
 import { Paginator } from 'primeng/paginator';
-import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
   templateUrl: './tenant.component.html',
@@ -61,7 +60,6 @@ export class TenantComponent implements OnInit {
       public _authService: AuthService,
       public _router: Router,
       public _companyServie: CompanyService,
-      private _securityService: SecurityService,
     ) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
         });
