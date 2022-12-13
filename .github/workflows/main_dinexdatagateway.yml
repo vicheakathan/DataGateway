@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'dinexdatagateway'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CDFD99B77C52418E87F56E60E1D0DF05 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BCFABB48F4B482F8D2ECE1D22387050 }}
           package: .
