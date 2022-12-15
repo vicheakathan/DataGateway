@@ -24,8 +24,8 @@ export class AppTopBarComponent {
         this.isLoadingResults = true;
         setTimeout(() => {
             this._authService.logout();
-            window.location.href = "login";
-            // this._router.navigate(['/login']);
+            // window.location.href = "login";
+            this._router.navigate(['/login']);
         }, 1000);
         
     }
