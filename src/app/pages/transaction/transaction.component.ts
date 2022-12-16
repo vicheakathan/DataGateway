@@ -34,6 +34,7 @@ export class TransactionComponent implements OnInit {
     dailogTitleHeader = "";
     firstRow: any = 0;
     endDate: string = "";
+    status = "asc";
     transactionModel: TransactionModel[] = [];
     pageSizeOptions: number[] = [this.itemsPerPage, 50, 100, 200];
     @ViewChild('dt', { static: true }) dt!: Table;
@@ -82,18 +83,25 @@ export class TransactionComponent implements OnInit {
 
   OnLoadDataSource(event: any) {
     this.isLoadingResults = true;
+    console.log(event);
     setTimeout(() => {
         if (event.sortOrder == 1 && event.sortField !== undefined && event.sortField !== null)
             this.orderByDate = "asc";
         if (event.sortOrder == -1)
             this.orderByDate = "desc";
 
+        if (event.sortOrder == 1 && event.sortField !== undefined && event.sortField !== null && event.sortField == "status")
+            this.status = "desc";
+        if (event.sortOrder == -1)
+            this.status = "asc";
+
         this._transactionService.getTaskSaleTransaction(
             this.itemsPerPage,
             this.pageLinks,
             this.orderByDate,
             this.startDate,
-            this.endDate
+            this.endDate,
+            this.status
         ).then(res => {
             this.totalRecords = res.total;
             this.transactionModel = res.data;

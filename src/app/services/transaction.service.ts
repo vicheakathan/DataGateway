@@ -58,13 +58,13 @@ export class TransactionService {
     return this._http.get<any>(API_URL + 'api/taskmanager/getErrorLog', this.HTTP_OPTIONS)
       .pipe(catchError(TransactionService.handleError));
   }
-  getTaskSaleTransaction(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string) {
+  getTaskSaleTransaction(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, status: string) {
     var dateFilter = "";
     if (startDate && endDate != null) {
       dateFilter = "&startDate=" + startDate + "&endDate=" + endDate;
     }
 
-    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + dateFilter;
+    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + "&status=" + status + dateFilter;
     
     return this._http.get<any>(API_URL + 'api/taskmanager/getTaskSaleTransaction' + param, this.HTTP_OPTIONS)
       .toPromise()
