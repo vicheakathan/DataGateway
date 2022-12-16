@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // api_url: "https://dinexcloudgateway.azurewebsites.net/"
-  api_url: 'https://localhost:7012/'
+  api_url: "https://dinexcloudgateway.azurewebsites.net/"
+  // api_url: 'https://localhost:7012/'
 };
 
 /*
