@@ -83,7 +83,6 @@ export class TransactionComponent implements OnInit {
 
   OnLoadDataSource(event: any) {
     this.isLoadingResults = true;
-    console.log(event);
     setTimeout(() => {
         if (event.sortOrder == 1 && event.sortField !== undefined && event.sortField !== null)
             this.orderByDate = "asc";

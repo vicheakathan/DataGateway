@@ -8,6 +8,7 @@ import { getCookie, setCookie,removeCookie } from 'typescript-cookie'
 const notification = 'notification';
 const username = 'username';
 const error = 'error';
+const theme = 'theme';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,5 +49,11 @@ export class LocalStorageService {
   }
   getError() {
     return localStorage.getItem(error);
+  }
+  setTheme(str: any): void{
+    return localStorage.setItem(theme, str);
+  }
+  getTheme(){
+    return localStorage.getItem(theme);
   }
 }

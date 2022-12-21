@@ -32,7 +32,6 @@
                         <th>Tenant</th>
                         <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                         <th>Error Log</th>
-                        <!-- <th style="width:21%">Sale Transaction Id</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-transactionModel let-expanded="expanded">
@@ -63,10 +62,6 @@
                                 </button>
                             </div>
                         </td>
-                        <!-- <td style="width:20%; min-width:10rem;">
-                            <span class="p-column-title">taskId</span>
-                            {{ transactionModel.saleTransactionId }}
-                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="rowexpansion" let-transactionModel>

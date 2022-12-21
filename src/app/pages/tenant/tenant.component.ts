@@ -53,6 +53,23 @@ export class TenantComponent implements OnInit {
       {name: 'Exclusive', key: false}
     ];
 
+    currency: any[] = [
+      {
+        currencyCode: 'CUR-001',
+        currencyName: 'USD', 
+        currencyAbv: 'Dollar',
+        currencySign: '$',
+        exchangeRate: '4100.00'
+      },
+      {
+        currencyCode: 'CUR-002',
+        currencyName: 'KHR', 
+        currencyAbv: 'Riel',
+        currencySign: 'R',
+        exchangeRate: '4100.00'
+      }
+    ];
+
     constructor(
       public layoutService: LayoutService,
       private _messageService: MessageService,
@@ -149,6 +166,15 @@ export class TenantComponent implements OnInit {
         // percentage: "50",
         isExclude: false,
       }],
+      currency: [
+        {
+          currencyCode: 'CUR-001',
+          currencyName: 'USD', 
+          currencyAbv: 'Dollar',
+          currencySign: '$',
+          exchangeRate: '4100.00'
+        }
+      ]
 
       // companyId: "8A90B313-C718-4A84-BEA9-08DADBFCBAD3",
       // remoteCode: "test",
@@ -174,6 +200,16 @@ export class TenantComponent implements OnInit {
         this.date = moment(tenant.createAt).format('MM/DD/YYYY');
     this.tenantModelDialog = { ...tenant };
     this.tenantDailog = true;
+  }
+
+  onChangeCurrency(value: any) {
+    this.tenantModelDialog.currency = [{
+      currencyName: value.currencyName,
+      currencyCode: value.currencyCode,
+      currencyAbv: value.currencyAbv,
+      currencySign: value.currencySign,
+      exchangeRate: value.exchangeRate
+    }];
   }
 
   update() {
@@ -262,7 +298,7 @@ export class TenantComponent implements OnInit {
     let worksheet = workbook.addWorksheet("List Tenant");
     var rowHeight = 30;
     // header-----------------
-      let header = ["Date","Tenant Id","Name","Company","Vat"];
+      let header = ["Date","Tenant Id","Name","Company","Vat","Currency"];
       let headerRow = worksheet.addRow(header);
       headerRow.eachCell(cell => {
         cell.font = {
@@ -293,6 +329,7 @@ export class TenantComponent implements OnInit {
       worksheet.getColumn("C").width = 30;
       worksheet.getColumn("D").width = 30;
       worksheet.getColumn("E").width = 20;
+      worksheet.getColumn("F").width = 20;
     // set width----------
     var selectData = this.isSelectedTenant;
     var company = this.companyId;
@@ -328,6 +365,17 @@ export class TenantComponent implements OnInit {
                   }
                 }
                 temp.push(vatType);
+
+                var curr = JSON.parse(JSON.stringify(selectData[i]['currency']));
+                for (let k=0; k<=curr.length; k++)
+                {
+                  var currency:any;
+                  if (curr[k] !== undefined)
+                  {
+                    currency = curr[k]['currencyAbv'];
+                  }
+                }
+                temp.push(currency);
 
                 worksheet.addRow(temp);
 

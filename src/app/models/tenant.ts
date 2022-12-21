@@ -19,4 +19,5 @@ export interface TenantModel {
   openDate?: any;
   closeDate?: any;
   vatType?: any;
+  currency?: any;
 }

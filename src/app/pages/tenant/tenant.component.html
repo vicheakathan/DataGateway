@@ -34,7 +34,8 @@
                         <th style="width: 30%">Tenant Id</th>
                         <th style="width: 20%">Name</th>
                         <th>Company</th>
-                        <th>Vat</th>
+                        <th style="min-width: 13rem;">Vat</th>
+                        <th style="min-width: 10rem;">Currency</th>
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -69,6 +70,16 @@
                                 </div>
                                 <div *ngIf="v.isExclude == false">
                                     <span class="p-badge p-badge-info">Exclusive</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let c of tenantModel.currency">
+                                <div *ngIf="c.currencyName == 'KHR'">
+                                    <span class="p-badge p-badge-success">{{c.currencyAbv}}</span>
+                                </div>
+                                <div *ngIf="c.currencyName == 'USD'">
+                                    <span class="p-badge p-badge-info">{{c.currencyAbv}}</span>
                                 </div>
                             </div>
                         </td>
@@ -138,6 +149,17 @@
                     </div>
                 </div>
                 <div class="field">
+                    <label for="address">Currency</label>
+                    <div *ngFor="let cur of currency" class="field-checkbox">
+                        <div *ngFor="let row of tenantModelDialog.currency">
+                            <div>
+                                <p-radioButton [inputId]="cur.currencyName" name="currency" [value]="cur.currencyName" [(ngModel)]="row.currencyName" (onClick)="onChangeCurrency(cur)"></p-radioButton>
+                                <label [for]="cur.currencyName" style="padding-left: 10px;">{{cur.currencyAbv}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
                     <label for="address">Address</label>
                     <textarea id="address" pInputTextarea [(ngModel)]="tenantModelDialog.address" required rows="3" cols="20" [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.address}"></textarea>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.address">Address is required.</small>
@@ -176,7 +198,6 @@
                         <input type="text" pInputText id="vname" [(ngModel)]="vat.name" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !vat.name}"/>
                         <!-- <input type="text" pInputText id="percentage" [(ngModel)]="vat.percentage" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !vat.percentage}"/> -->
                     </div>
-
                 </div>
             </ng-template>
 
