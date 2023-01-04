@@ -25,11 +25,18 @@ import { AuthGuard } from './helpers/auth.guard';
                         loadChildren: () => import('./pages/tenant/tenant.module').then(m => m.TenantMudule) 
                     },
                     { 
-                        path: 'transaction', 
+                        path: 'transaction-log', 
                         data: {
-                            title: 'Transaction'
+                            title: 'Transaction Log'
                         }, 
                         loadChildren: () => import('./pages/transaction/transaction.module').then(m => m.TransactionMudule) 
+                    },
+                    { 
+                        path: 'transaction-history', 
+                        data: {
+                            title: 'Transaction History'
+                        }, 
+                        loadChildren: () => import('./pages/transaction-history/transaction-history.module').then(m => m.TransactionHistoryMudule) 
                     },
                 ]
             },

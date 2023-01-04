@@ -19,7 +19,8 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Company', icon: 'pi pi-fw pi-building', routerLink: ['/'] },
                     { label: 'Tenant', icon: 'pi pi-fw pi-user', routerLink: ['/tenant'] },
-                    { label: 'Task Sale Transaction', icon: 'pi pi-fw pi-dollar', routerLink: ['/transaction'] },
+                    { label: 'Transaction History', icon: 'pi pi-fw pi-history', routerLink: ['/transaction-history'] },
+                    // { label: 'Transaction Log', icon: 'pi pi-fw pi-dollar', routerLink: ['/transaction-log'] },
                 ]
             }, 
         ];

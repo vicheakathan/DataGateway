@@ -49,6 +49,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { CompanyComponent } from './pages/company/company.component';
 import { TenantComponent } from './pages/tenant/tenant.component';
 import { TransactionComponent } from './pages/transaction/transaction.component';
+import { TransactionHistoryComponent } from './pages/transaction-history/transaction-history.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { TransactionComponent } from './pages/transaction/transaction.component'
         NotfoundComponent,
         CompanyComponent,
         TenantComponent,
-        TransactionComponent
+        TransactionComponent,
+        TransactionHistoryComponent
     ],
     imports: [
         AppRoutingModule,
