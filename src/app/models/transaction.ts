@@ -1,8 +1,3 @@
-// export interface GithubApi {
-//   data: TransactionModel[];
-//   total: number;
-// }
-
 export interface TransactionModel {
   id?: any;
   createDate?: any;
@@ -13,7 +8,23 @@ export interface TransactionModel {
   saleTransactionId?:any;
   isSuccess?:any;
   tanantId?:any;
-  username?:any;
+  tenant?:any;
   taskId?:any;
-  dataError?:any;
+  errorLog?:any;
+  saleTransaction?:any;
+}
+
+export interface SaleTransactionDetailModel {
+  orderDateTime?: any;
+  receiptId?: any;
+  grandTotal?: any;
+}
+
+export interface ErrorLogModel {
+  id?:any;
+  dateLog?:any;
+  errorLogs?:any;
+  datalog?:any;
+  refCode?:any;
+  errorLog?:any;
 }

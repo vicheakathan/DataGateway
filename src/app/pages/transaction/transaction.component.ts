@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/services/app.layout.service';
 import { LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { TransactionModel } from 'src/app/models/transaction';
+import { SaleTransactionDetailModel, TransactionModel, ErrorLogModel } from 'src/app/models/transaction';
 import { Table } from 'primeng/table';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import * as FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
 import { Paginator } from 'primeng/paginator';
-import { ErrorLogModel } from 'src/app/models/errorlog';
+import { TenantService } from 'src/app/services/tenant.service';
 
 @Component({
   templateUrl: './transaction.component.html',
@@ -46,32 +46,30 @@ export class TransactionComponent implements OnInit {
     isSelectedTransaction: TransactionModel[] = [];
     rangeDates!: Date[];
     @ViewChild('paginator', { static: true }) paginator!: Paginator;
-    ErrorLogModel: ErrorLogModel[] = [];
-    ErrorLog: any = [];
-
+    itemTenant: any = [];
+    tenantId: any;
+    showSaleTransactionDetailDailog: boolean = false;
+    saleTransactionDetailModel: SaleTransactionDetailModel[] = [];
+    showErrorLogDailog: boolean = false;
+    errorLogModel: ErrorLogModel[] = [];
 
     constructor(
         public layoutService: LayoutService,
         private _messageService: MessageService,
         public _transactionService: TransactionService,
         public _authService: AuthService,
-        public _router: Router
+        public _router: Router,
+        public _tenantService: TenantService
     ) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
         });
+
+        this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
     }
 
   ngOnInit() {
     if (!this._authService.isLoggedIn)
       this._router.navigate(['/login']);
-
-      this._transactionService.getErrorLog().subscribe(
-        response => {
-          for(var i = 0; i < response.length; i++){ 
-            this.ErrorLog.push(response[i]);
-          }
-        }
-      );
   }
 
   paginate(event: any): any {
@@ -88,19 +86,14 @@ export class TransactionComponent implements OnInit {
             this.orderByDate = "asc";
         if (event.sortOrder == -1)
             this.orderByDate = "desc";
-
-        if (event.sortOrder == 1 && event.sortField !== undefined && event.sortField !== null && event.sortField == "status")
-            this.status = "desc";
-        if (event.sortOrder == -1)
-            this.status = "asc";
-
-        this._transactionService.getTaskSaleTransaction(
+            
+        this._transactionService.getTransactionLog(
             this.itemsPerPage,
             this.pageLinks,
             this.orderByDate,
             this.startDate,
             this.endDate,
-            this.status
+            this.tenantId
         ).then(res => {
             this.totalRecords = res.total;
             this.transactionModel = res.data;
@@ -134,6 +127,8 @@ export class TransactionComponent implements OnInit {
     this.rangeDates = [];
     this.isSelectedTransaction = [];
     this.paginator.changePageToFirst(event);
+    this.itemTenant = this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
+    this.tenantId = "";
     this.dt.clear();
   }
 
@@ -143,10 +138,10 @@ export class TransactionComponent implements OnInit {
 
   exportExcel(table: Table): void {
     let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet("List Transaction");
+    let worksheet = workbook.addWorksheet("List Transactions Log");
     var rowHeight = 30;
     // header-----------------
-      let header = ["Date","Tenant", "Status","Error Log"];
+      let header = ["Date","Task Id", "Tenant", "Status","Data Detail", "Error Log"];
       let headerRow = worksheet.addRow(header);
       headerRow.eachCell(cell => {
         cell.font = {
@@ -175,8 +170,9 @@ export class TransactionComponent implements OnInit {
       worksheet.getColumn("A").width = 25;
       worksheet.getColumn("B").width = 40;
       worksheet.getColumn("C").width = 15;
-      worksheet.getColumn("D").width = 50;
+      worksheet.getColumn("D").width = 20;
       worksheet.getColumn("E").width = 50;
+      worksheet.getColumn("F").width = 60;
     // set width----------
     var selectData = this.isSelectedTransaction;
     if (selectData.length > 0) {
@@ -184,25 +180,16 @@ export class TransactionComponent implements OnInit {
             if (selectData[i] !== undefined) {
                 var temp: any = [];
                 temp.push(moment(selectData[i]['date']).format('MM/DD/YYYY'));
-                temp.push(selectData[i]['username']);
+                temp.push(selectData[i]['taskId'].toUpperCase());
+                temp.push(selectData[i]['tenant']);
                 if (selectData[i]['isSuccess'] == false)
                   temp.push("False");
                 else
                   temp.push("Success");
-
-                if(selectData[i]['dataError'] != "") {
-                  var error = selectData[i]['dataError'];
-                  var t: any = [];
-                  for (let j=0; j<=error.length; j++) {
-                    if (error[j] !== undefined) {
-                      t = error[j]['errorLogs'];
-                    }
-                  }
-                  temp.push(t);
-                } else 
-                  temp.push("");
-
-                // temp.push(selectData[i]['saleTransactionId']);
+                
+                temp.push(JSON.stringify(selectData[i]['saleTransaction']));
+                if (selectData[i]['errorLog'] != "")
+                temp.push(JSON.stringify(selectData[i]['errorLog']));
                 
                 worksheet.addRow(temp);
 
@@ -218,18 +205,34 @@ export class TransactionComponent implements OnInit {
         }
         workbook.xlsx.writeBuffer().then((data) => {
             let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            FileSaver.saveAs(blob, 'List Transactions.xlsx');
+            FileSaver.saveAs(blob, 'List Transactions Log.xlsx');
         });
-        
-        // this.isSelectedTransaction = [];
-        // this.dt.selectionKeys = [];
-        // this.dt._selection = [];
-        // this.paginator.changePageToFirst(event);
-        // this.dt.clear();
         this.clear();
     } else
         this._messageService.add({ severity: 'error', summary: 'Error', detail: "Please select at least one transaction", life: 2000 });
   }
-  
 
+  closeDialog() {
+    this.showSaleTransactionDetailDailog = false;
+    this.showErrorLogDailog = false;
+  }
+  
+  OnShowSaleTransactionDetailDailog(value: any) {
+    this.showSaleTransactionDetailDailog = true;
+    this.dailogTitleHeader = "Sale Transaction Detail (" + value.tenant + ")";
+    this.saleTransactionDetailModel = [value.saleTransaction];
+  }
+
+  onFilterByTenant(event: any) {
+    if (event.value != null || event.value !== undefined) {
+      this.tenantId = event.value;
+      this.dt.filterGlobal(event, 'contains');
+    }
+  }
+
+  OnShowErrorLog(value: any) {
+    this.showErrorLogDailog = true;
+    this.dailogTitleHeader = "Error Log Detail (" + value.tenant + ")";
+    this.errorLogModel = [value];
+  }
 }

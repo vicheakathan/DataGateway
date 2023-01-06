@@ -36,37 +36,36 @@ export class TransactionService {
       'Something bad happened; please try again later.');
   }
 
-  getTaskManagerTransation(): Observable<any> {
-    return this._http.get<any>(API_URL + 'api/taskmanager', this.HTTP_OPTIONS)
-      .pipe(catchError(TransactionService.handleError));
-  }
-
-  getTransaction(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string) {
+  getTransactionLog(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, tenantId: any) {
     var dateFilter = "";
     if (startDate && endDate != null) {
       dateFilter = "&startDate=" + startDate + "&endDate=" + endDate;
     }
 
-    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + dateFilter;
+    var tenant = "";
+    if (tenantId != null)
+      tenant = "&tenantId=" + tenantId;
+
+    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + tenant + dateFilter;
     
-    return this._http.get<any>(API_URL + 'api/taskmanager' + param, this.HTTP_OPTIONS)
+    return this._http.get<any>(API_URL + 'api/TransactionLog' + param, this.HTTP_OPTIONS)
       .toPromise()
       .then(response => {return response;});
   }
 
-  getErrorLog(): Observable<any> {
-    return this._http.get<any>(API_URL + 'api/taskmanager/getErrorLog', this.HTTP_OPTIONS)
-      .pipe(catchError(TransactionService.handleError));
-  }
-  getTaskSaleTransaction(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, status: string) {
+  getTransactionLogs(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, tenantId: any) {
     var dateFilter = "";
     if (startDate && endDate != null) {
       dateFilter = "&startDate=" + startDate + "&endDate=" + endDate;
     }
 
-    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + "&status=" + status + dateFilter;
+    var tenant = "";
+    if (tenantId != null)
+      tenant = "&tenantId=" + tenantId;
+
+    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + tenant + dateFilter;
     
-    return this._http.get<any>(API_URL + 'api/taskmanager/getTaskSaleTransaction' + param, this.HTTP_OPTIONS)
+    return this._http.get<any>(API_URL + 'api/taskmanager' + param, this.HTTP_OPTIONS)
       .toPromise()
       .then(response => {return response;});
   }
