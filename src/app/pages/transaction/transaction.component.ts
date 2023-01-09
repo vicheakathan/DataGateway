@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/services/app.layout.service';
 import { LazyLoadEvent, MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { SaleTransactionDetailModel, TransactionModel, ErrorLogModel } from 'src/app/models/transaction';
+import { SaleTransactionDetailModel, TransactionModel, ErrorLogModel, SaleStatusModel } from 'src/app/models/transaction';
 import { Table } from 'primeng/table';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -34,7 +34,6 @@ export class TransactionComponent implements OnInit {
     dailogTitleHeader = "";
     firstRow: any = 0;
     endDate: string = "";
-    status = "asc";
     transactionModel: TransactionModel[] = [];
     pageSizeOptions: number[] = [this.itemsPerPage, 50, 100, 200];
     @ViewChild('dt', { static: true }) dt!: Table;
@@ -52,6 +51,9 @@ export class TransactionComponent implements OnInit {
     saleTransactionDetailModel: SaleTransactionDetailModel[] = [];
     showErrorLogDailog: boolean = false;
     errorLogModel: ErrorLogModel[] = [];
+    itemSaleStatus: SaleStatusModel[] = [];
+    selectedStatus: SaleStatusModel | undefined;
+    saleStatus: any;
 
     constructor(
         public layoutService: LayoutService,
@@ -65,6 +67,11 @@ export class TransactionComponent implements OnInit {
         });
 
         this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
+
+        this.itemSaleStatus = [
+          {name: "Success", key: true},
+          {name: "Fail", key: false}
+        ];
     }
 
   ngOnInit() {
@@ -93,7 +100,8 @@ export class TransactionComponent implements OnInit {
             this.orderByDate,
             this.startDate,
             this.endDate,
-            this.tenantId
+            this.tenantId,
+            this.saleStatus
         ).then(res => {
             this.totalRecords = res.total;
             this.transactionModel = res.data;
@@ -120,6 +128,7 @@ export class TransactionComponent implements OnInit {
   }
 
   clear() {
+    this.ngOnInit();
     this.dt.selectionKeys = [];
     this.dt._selection = [];
     this.startDate = "";
@@ -129,6 +138,11 @@ export class TransactionComponent implements OnInit {
     this.paginator.changePageToFirst(event);
     this.itemTenant = this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
     this.tenantId = "";
+    this.saleStatus = "";
+    this.itemSaleStatus = [
+      {name: "Success", key: true},
+      {name: "Fail", key: false}
+    ];
     this.dt.clear();
   }
 
@@ -234,5 +248,12 @@ export class TransactionComponent implements OnInit {
     this.showErrorLogDailog = true;
     this.dailogTitleHeader = "Error Log Detail (" + value.tenant + ")";
     this.errorLogModel = [value];
+  }
+
+  onFilterByStatus(event: any) {
+    if (event.value != null || event.value !== undefined) {
+      this.saleStatus = event.value;
+      this.dt.filterGlobal(event, 'contains');
+    }
   }
 }

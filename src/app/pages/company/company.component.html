@@ -6,9 +6,9 @@
     <div class="col-12">
         <p-toolbar styleClass="mb-4 tk_header">
             <ng-template pTemplate="left">
-                <div class="p-inputgroup tk_button_search ">
-                    <button type="button" pButton pRipple label="Search" (click)="onGlobalFilter(dt, searchValue .value)"></button>
+                <div class="tk_button_search ">
                     <input type="text" pInputText placeholder="Keyword" #searchValue class="mr-2">
+                    <button type="button" class="mr-2" pButton pRipple label="Search" (click)="onGlobalFilter(dt, searchValue .value)"></button>
                     <button pButton pRipple label="Clear" icon="pi pi-filter-slash" class="p-button-outlined mr-2" (click)="clear(dt)"></button>
                 </div>
             </ng-template>

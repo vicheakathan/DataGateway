@@ -7,9 +7,9 @@
         <p-toolbar styleClass="mb-4 tk_header">
             <ng-template pTemplate="left">
                 <div class="tk_button_search ">
-                    <button type="button" pButton pRipple label="Search" (click)="onGlobalFilter($event)"></button>
-                    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Start date - End date" #calendar (onSelect)="onChangeDate()"></p-calendar>
                     <p-dropdown [options]="itemTenant" id="tenant" placeholder="Tenant" optionLabel="name" optionValue="id" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
+                    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Start date - End date" #calendar (onSelect)="onChangeDate()"></p-calendar>
+                    <button class="mr-2" type="button" pButton pRipple label="Search" (click)="onGlobalFilter($event)"></button>
                     <button pButton pRipple label="Clear" icon="pi pi-filter-slash" class="p-button-outlined mr-2" (click)="clear()"></button>
                 </div>
             </ng-template>

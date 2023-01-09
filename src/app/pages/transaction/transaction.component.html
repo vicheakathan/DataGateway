@@ -7,9 +7,10 @@
         <p-toolbar styleClass="mb-4 tk_header">
             <ng-template pTemplate="left">
                 <div class="tk_button_search ">
-                    <button type="button" pButton pRipple label="Search" (click)="onGlobalFilter($event)"></button>
-                    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Start date - End date" #calendar (onSelect)="onChangeDate()"></p-calendar>
+                    <p-dropdown class="mr-2" [options]="itemSaleStatus" [(ngModel)]="selectedStatus" placeholder="Status" optionLabel="name" optionValue="key" [showClear]="true" (onChange)="onFilterByStatus($event)"></p-dropdown>
                     <p-dropdown [options]="itemTenant" id="tenant" placeholder="Tenant" optionLabel="name" optionValue="id" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
+                    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Start date - End date" #calendar (onSelect)="onChangeDate()"></p-calendar>
+                    <button class="mr-2" type="button" pButton pRipple label="Search" (click)="onGlobalFilter($event)"></button>
                     <button pButton pRipple label="Clear" icon="pi pi-filter-slash" class="p-button-outlined mr-2" (click)="clear()"></button>
                 </div>
             </ng-template>
@@ -60,7 +61,7 @@
                                 <span class="p-badge p-badge-success">Success</span>
                             </div>
                             <div *ngIf="transactionModel.isSuccess == false">
-                                <span class="p-badge p-badge-danger">False</span>
+                                <span class="p-badge p-badge-danger">Fail</span>
                             </div>
                         </td>
                         <td >
@@ -138,7 +139,12 @@
                             </td>
                             <td style="max-width:15rem">
                                 <span class="p-column-title">receiptId</span>
-                                {{ saleTransactionDetailModel.grandTotal | currency:'USD' }}
+                                <div *ngIf="saleTransactionDetailModel.currency == 'Dollar'">
+                                    {{ saleTransactionDetailModel.grandTotal | currency:'USD' }}
+                                </div>
+                                <div *ngIf="saleTransactionDetailModel.currency == 'Riel'">
+                                    {{ saleTransactionDetailModel.grandTotal | currency:'R' }}
+                                </div>
                             </td>
                         </tr>
                     </ng-template>

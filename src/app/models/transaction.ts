@@ -18,8 +18,8 @@ export interface SaleTransactionDetailModel {
   orderDateTime?: any;
   receiptId?: any;
   grandTotal?: any;
+  currency?:any;
 }
-
 export interface ErrorLogModel {
   id?:any;
   dateLog?:any;
@@ -27,4 +27,9 @@ export interface ErrorLogModel {
   datalog?:any;
   refCode?:any;
   errorLog?:any;
+}
+
+export interface SaleStatusModel {
+  name?:any;
+  key?:any;
 }

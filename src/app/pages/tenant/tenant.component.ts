@@ -410,4 +410,7 @@ export class TenantComponent implements OnInit {
     this.OnLoadDataSource(Event);
   }
   
+  OnChangePassword(value: any) {
+    this.tenantModelDialog.other = value;
+  }
 }

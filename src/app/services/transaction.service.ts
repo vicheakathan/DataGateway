@@ -36,7 +36,7 @@ export class TransactionService {
       'Something bad happened; please try again later.');
   }
 
-  getTransactionLog(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, tenantId: any) {
+  getTransactionLog(itemsPerPage: number, currentPage: number, orderByDate: string, startDate: string, endDate: string, tenantId: any, saleStatus: any) {
     var dateFilter = "";
     if (startDate && endDate != null) {
       dateFilter = "&startDate=" + startDate + "&endDate=" + endDate;
@@ -46,9 +46,13 @@ export class TransactionService {
     if (tenantId != null)
       tenant = "&tenantId=" + tenantId;
 
-    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + tenant + dateFilter;
+    var status = "";
+    if (saleStatus != null)
+      status = "&status=" + saleStatus;
+
+    const param = "?itemsPerPage=" + itemsPerPage + "&currentPage=" + currentPage + "&orderByDate=" + orderByDate + tenant + dateFilter + status;
     
-    return this._http.get<any>(API_URL + 'api/TransactionLog' + param, this.HTTP_OPTIONS)
+    return this._http.get<any>(API_URL + 'api/transactionlog' + param, this.HTTP_OPTIONS)
       .toPromise()
       .then(response => {return response;});
   }

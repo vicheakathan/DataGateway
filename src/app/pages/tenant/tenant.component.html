@@ -6,9 +6,9 @@
     <div class="col-12">
         <p-toolbar styleClass="mb-4 tk_header">
             <ng-template pTemplate="left">
-                <div class="p-inputgroup tk_button_search ">
-                    <button type="button" pButton pRipple label="Search" (click)="onGlobalFilter(dt, searchValue .value)"></button>
+                <div class="tk_button_search ">
                     <input type="text" pInputText placeholder="Keyword" #searchValue class="mr-2">
+                    <button class="mr-2" type="button" pButton pRipple label="Search" (click)="onGlobalFilter(dt, searchValue .value)"></button>
                     <button pButton pRipple label="Clear" icon="pi pi-filter-slash" class="p-button-outlined mr-2" (click)="clear(dt)"></button>
                 </div>
             </ng-template>
@@ -216,10 +216,13 @@
                 </div>
                 <div class="field">
                     <label for="name">Password</label>
-                    <!-- <div [formGroup]="formGroup"> -->
-                        <input type="password" pInputText id="password" [(ngModel)]="tenantModelDialog.password"  required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}"/>
-                        <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.password">Password is required.</small>
-                    <!-- </div> -->
+                    <input type="password" pInputText #password [(ngModel)]="tenantModelDialog.password"  required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}" (change)="OnChangePassword(password.value)"/>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.password">Password is required.</small>
+                </div>
+                <div class="field tk_display_none">
+                    <label for="name">Other</label>
+                    <input type="text" pInputText #other_password [(ngModel)]="tenantModelDialog.other"  required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.other}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.other">Password is required.</small>
                 </div>
             </ng-template>
 
