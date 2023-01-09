@@ -51,7 +51,7 @@ export class TransactionComponent implements OnInit {
     saleTransactionDetailModel: SaleTransactionDetailModel[] = [];
     showErrorLogDailog: boolean = false;
     errorLogModel: ErrorLogModel[] = [];
-    itemSaleStatus: SaleStatusModel[] = [];
+    itemSaleStatus: any = [];
     selectedStatus: SaleStatusModel | undefined;
     saleStatus: any;
 
@@ -139,10 +139,7 @@ export class TransactionComponent implements OnInit {
     this.itemTenant = this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
     this.tenantId = "";
     this.saleStatus = "";
-    this.itemSaleStatus = [
-      {name: "Success", key: true},
-      {name: "Fail", key: false}
-    ];
+    this.selectedStatus = undefined;
     this.dt.clear();
   }
 
