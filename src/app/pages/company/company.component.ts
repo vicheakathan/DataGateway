@@ -95,6 +95,7 @@ export class CompanyComponent implements OnInit {
     clear(table: Table) {
         table.clear();
         this.searchFilter = "";
+        this.orderByDate = "desc";
         this.searchValue.nativeElement.value = "";
         this.dt.selectionKeys = [];
         this.dt._selection = [];

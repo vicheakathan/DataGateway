@@ -127,6 +127,7 @@ export class TenantComponent implements OnInit {
 
   clear(table: Table) {
     table.reset();
+    this.orderByDate = "desc";
     this.searchFilter = "";
     this.searchValue.nativeElement.value = "";
     this.dt.selectionKeys = [];

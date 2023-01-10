@@ -134,6 +134,7 @@ export class TransactionComponent implements OnInit {
     this.startDate = "";
     this.endDate = "";
     this.rangeDates = [];
+    this.orderByDate = "desc";
     this.isSelectedTransaction = [];
     this.paginator.changePageToFirst(event);
     this.itemTenant = this._tenantService.getTenant(50,0,"","","","").subscribe(res => {this.itemTenant = res.data;});
