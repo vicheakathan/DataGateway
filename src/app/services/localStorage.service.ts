@@ -8,7 +8,9 @@ import { getCookie, setCookie,removeCookie } from 'typescript-cookie'
 const notification = 'notification';
 const username = 'username';
 const error = 'error';
-const theme = 'theme';
+const darkTheme = 'dark-theme';
+const themeUrl = 'theme-url';
+const logoUrl = 'logo-url';
 @Injectable({
   providedIn: 'root'
 })
@@ -50,10 +52,22 @@ export class LocalStorageService {
   getError() {
     return localStorage.getItem(error);
   }
-  setTheme(str: any): void{
-    return localStorage.setItem(theme, str);
+  setThemeUrl(str: any): void{
+    return localStorage.setItem(themeUrl, str);
   }
-  getTheme(){
-    return localStorage.getItem(theme);
+  getThemeUrl(){
+    return localStorage.getItem(themeUrl);
+  }
+  setIsDarkTheme(str: any): void{
+    return localStorage.setItem(darkTheme, str);
+  }
+  getIsDarkTheme(){
+    return localStorage.getItem(darkTheme);
+  }
+  setLogoUrl(str: any): void{
+    return localStorage.setItem(logoUrl, str);
+  }
+  getLogoUrl(){
+    return localStorage.getItem(logoUrl);
   }
 }

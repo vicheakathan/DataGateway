@@ -1,8 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from 'src/app/services/app.layout.service';
 import { AuthService } from '../services/auth.service';
+import { ThemeService } from '../services/theme.service';
+import { LocalStorageService } from '../services/localStorage.service';
 
 @Component({
     selector: 'app-topbar',
@@ -10,29 +12,49 @@ import { AuthService } from '../services/auth.service';
 })
 export class AppTopBarComponent {
     isLoadingResults: boolean = false;
-
+    checked: any =false;
     items!: MenuItem[];
-
+    image_src: any = "assets/images/logo.png";
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,public _authService: AuthService,public _router:Router) { }
+    constructor(
+        public layoutService: LayoutService,
+        public _authService: AuthService,
+        public _router:Router,
+        public themeService: ThemeService,
+        public localStorageService: LocalStorageService,
+    ) {
+        if (this.localStorageService.getIsDarkTheme() != null)
+            this.checked = this.getBoolean(this.localStorageService.getIsDarkTheme());
+
+        if (this.localStorageService.getLogoUrl() != null)
+            this.image_src = this.localStorageService.getLogoUrl();
+    }
+
+    getBoolean(value: any)
+    {
+        switch(value) {
+            case "true":
+                return true;
+            default : 
+                return false;
+        }
+    }
 
     logout(): void {
         this.isLoadingResults = true;
         setTimeout(() => {
             this._authService.logout();
-            // window.location.href = "login";
             this._router.navigate(['/login']);
         }, 1000);
-        
     }
 
-    toggleDarkTheme(): void {
-        document.body.classList.toggle('light-theme');
-        console.log('==');
-     }
+    toggleTheme(event: any) {
+        this.themeService.switchTheme(event.checked);
+    }
+    
 }

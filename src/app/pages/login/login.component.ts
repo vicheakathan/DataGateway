@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/services/app.layout.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/localStorage.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -20,16 +21,21 @@ export class LoginComponent implements OnInit {
     @Input() password: string = '';
     loginForm: any = FormGroup;
     isLoadingResults: boolean = false;
+    image_src: any = 'assets/images/logo.png';
     constructor(
         public layoutService: LayoutService,
         public formBuilder: FormBuilder,
         public router: Router,
         public authService: AuthService,
+        public localStorageService: LocalStorageService
     ) {
         this.loginForm = new FormGroup({
             username: new FormControl('', Validators.compose([Validators.required])),
             password: new FormControl('', Validators.compose([Validators.required])),
-        })
+        });
+
+        if (this.localStorageService.getLogoUrl() != null)
+            this.image_src = this.localStorageService.getLogoUrl();
     }
 
     ngOnInit(): void {
