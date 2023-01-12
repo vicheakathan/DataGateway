@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
                 this.authService.login(this.loginForm.value)
                 .subscribe(() => {
-                    this.router.navigate(['/']);
+                    // this.router.navigate(['/']);
+                    window.location.href = '/';
                 }, (err: any) => {
                     if (err)
                         this.isIncorrectUsernamePassword = true;
