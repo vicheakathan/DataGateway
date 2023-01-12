@@ -10,7 +10,6 @@
     <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
     </button>
-
     
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}" style="align-items: center;">
         <!-- <p-splitButton label="Save" icon="pi pi-plus" [model]="items"></p-splitButton> -->
@@ -18,8 +17,19 @@
             <img src="assets/images/avatar.png" width="30" height="30">
         </button>
        -->
-       
-        <div style="margin-top:10px"><p-inputSwitch id="toggleTheme-checked" [(ngModel)]="checked" (onChange)="toggleTheme($event)" ></p-inputSwitch></div>
+        <label>
+            <input class='toggle-checkbox' type='checkbox' name="cheched" id="theme" onchange="theme()"/>
+            <div class='toggle-slot'>
+                <div class='sun-icon-wrapper' id="sun">
+                    <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                </div>
+                <div class='toggle-button'></div>
+                <div class='moon-icon-wrapper' id="moon">
+                    <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                </div>
+            </div>
+        </label>
+        <!-- <div style="margin-top:10px"><p-inputSwitch id="toggleTheme-checked" [(ngModel)]="checked" (onChange)="toggleTheme($event)" ></p-inputSwitch></div> -->
         <button class="p-link layout-topbar-button" (click)="logout()">
             <i class="pi pi-sign-out"></i>
             <span>Logout</span>
