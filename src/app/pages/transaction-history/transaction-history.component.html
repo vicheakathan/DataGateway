@@ -70,10 +70,10 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <tr *ngIf="totalRecords == 0"><td colspan="7">No record found.</td></tr>
+                    <tr *ngIf="totalRecords == 0"><td colspan="20">No record found.</td></tr>
                 </ng-template>
             </p-table>
-            <div style="border-top:1px solid #3f4b5b"></div>
+            <!-- <div style="border-top:1px solid #3f4b5b"></div> -->
             <p-paginator
                 #paginator
                 [rows]="itemsPerPage"
