@@ -6,18 +6,8 @@
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
     </button>
-
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
-        <i class="pi pi-ellipsis-v"></i>
-    </button>
-    
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}" style="align-items: center;">
-        <!-- <p-splitButton label="Save" icon="pi pi-plus" [model]="items"></p-splitButton> -->
-        <!-- <button class="p-link layout-topbar-button">
-            <img src="assets/images/avatar.png" width="30" height="30">
-        </button>
-       -->
-        <label>
+    <div  class="atk_topbar_menu">
+        <label style="margin-right:30px;cursor: pointer;">
             <input class='toggle-checkbox' type='checkbox' name="cheched" id="theme" onchange="theme()"/>
             <div class='toggle-slot'>
                 <div class='sun-icon-wrapper' id="sun">
@@ -29,13 +19,21 @@
                 </div>
             </div>
         </label>
-        <!-- <div style="margin-top:10px"><p-inputSwitch id="toggleTheme-checked" [(ngModel)]="checked" (onChange)="toggleTheme($event)" ></p-inputSwitch></div> -->
+        <div #topbarmenubutton style="cursor: pointer; display: flex;justify-content: center;align-items: center;" (click)="layoutService.showProfileSidebar()">
+            <img src="assets/images/avatar.png" width="30" height="30">
+            <span style="display:block;margin-left:5px;font-weight:500;  text-transform: capitalize;">{{username}}</span>
+            <i class="pi pi-sort-down" style="display: flex;justify-content: center;align-items: center;margin-left:5px"></i>
+        </div>  
+    </div>
+   
+    <div #topbarmenu class="atk_layout layout-topbar-menus" [ngClass]="{'layout-topbar-menu-mobile-active atk_layout_active': layoutService.state.profileSidebarVisible}" style="align-items: center;">
         <button class="p-link layout-topbar-button" (click)="logout()">
             <i class="pi pi-sign-out"></i>
-            <span>Logout</span>
+            <span style="display:block;font-weight:500">Logout</span>
         </button>
     </div>
 </div>
+
 <div class="loading-container" *ngIf="isLoadingResults">
     <div class="loading-speeding-wheel"></div>
 </div>

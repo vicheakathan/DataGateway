@@ -15,6 +15,7 @@ export class AppTopBarComponent {
     checked: any =false;
     items!: MenuItem[];
     image_src: any = "assets/images/logo.png";
+    username: any = 'Admin';
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
@@ -33,10 +34,12 @@ export class AppTopBarComponent {
 
         if (this.localStorageService.getLogoUrl() != null)
             this.image_src = this.localStorageService.getLogoUrl();
+
+        if (this.localStorageService.getUserLogin() != null)
+            this.username = this.localStorageService.getUserLogin();
     }
 
-    getBoolean(value: any)
-    {
+    getBoolean(value: any) {
         switch(value) {
             case "true":
                 return true;

@@ -443,3 +443,64 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
 .p-inputtext{
   padding: 0.75rem 0.75rem;
 }
+
+.layout-topbar .layout-topbar-menu{
+  // display: block !important;
+}
+.layout-topbar .layout-topbar-menu-button{
+  display: block !important;
+}
+.layout-topbar .layout-topbar-menu.layout-topbar-menu-mobile-active{
+  display: block !important;
+}
+
+
+
+.layout-topbar .atk_topbar_menu {
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+@media (max-width: 991px) {
+  .layout-topbar .atk_topbar_menu {
+    display: inline-flex;
+    margin-left: 0;
+    order: 3;
+  }
+}
+
+.atk_layout {
+  margin-left: 0;
+  position: absolute;
+  flex-direction: column;
+  background-color: var(--surface-overlay);
+  box-shadow: 0 3px 5px #00000005, 0 0 2px #0000000d, 0 1px 4px #00000014;
+  border-radius: 12px;
+  padding: 1rem;
+  right: 2rem;
+  top: 5rem;
+  min-width: 15rem;
+  display: none;
+  animation: scalein .15s linear;
+}
+.atk_layout_active {
+  margin: 0 0 0 auto;
+  padding: 5px;
+  list-style: none;
+  display: block;
+}
+
+.layout-topbar .atk_layout .layout-topbar-button {
+  margin-left: 0;
+  display: flex;
+  width: 100%;
+  height: auto;
+  justify-content: flex-start;
+  border-radius: 12px;
+  padding: 1rem;
+}
+.layout-topbar .atk_layout .layout-topbar-button i {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
