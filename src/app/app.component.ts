@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
             })
         ).subscribe( (data: any) => {
             if (data) {
-                this.titleService.setTitle(data + ' - APIGateway');
+                this.titleService.setTitle(data + ' - DataGateway');
             }
         });
     }
