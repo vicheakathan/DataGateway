@@ -5,6 +5,7 @@ import { LayoutService } from 'src/app/services/app.layout.service';
 import { AuthService } from '../services/auth.service';
 import { ThemeService } from '../services/theme.service';
 import { LocalStorageService } from '../services/localStorage.service';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
     selector: 'app-topbar',
@@ -28,6 +29,7 @@ export class AppTopBarComponent {
         public _router:Router,
         public themeService: ThemeService,
         public localStorageService: LocalStorageService,
+        public _setting: SettingsService
     ) {
         if (this.localStorageService.getIsDarkTheme() != null)
             this.checked = this.getBoolean(this.localStorageService.getIsDarkTheme());

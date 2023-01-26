@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "APIGateway": {
+    "DataGateway": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/APIGateway",
+            "outputPath": "dist/DataGateway",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "APIGateway:build:production"
+              "browserTarget": "DataGateway:build:production"
             },
             "development": {
-              "browserTarget": "APIGateway:build:development"
+              "browserTarget": "DataGateway:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "APIGateway:build"
+            "browserTarget": "DataGateway:build"
           }
         },
         "test": {
@@ -120,7 +120,7 @@
       }
     }
   },
-  "defaultProject": "APIGateway",
+  "defaultProject": "DataGateway",
   "cli": {
     "analytics": false,
     "schematicCollections": [

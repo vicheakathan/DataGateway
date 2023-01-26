@@ -38,6 +38,13 @@ import { AuthGuard } from './helpers/auth.guard';
                         }, 
                         loadChildren: () => import('./pages/transaction-history/transaction-history.module').then(m => m.TransactionHistoryMudule) 
                     },
+                    { 
+                        path: 'settings', 
+                        data: {
+                            title: 'Settings'
+                        }, 
+                        loadChildren: () => import('./pages/setting/setting.module').then(m => m.SettingMudule) 
+                    },
                 ]
             },
             { 

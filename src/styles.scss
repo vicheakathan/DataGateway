@@ -74,7 +74,7 @@ body.light-theme{
 
 }
 .is-invalid{
-  border-color: #e24c4c
+  border-color: #e24c4c !important;
 }
 p-dropdown.ng-dirty.ng-invalid > .p-dropdown{
   border-color: #e24c4c
@@ -503,4 +503,21 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
 .layout-topbar .atk_layout .layout-topbar-button i {
   font-size: 1rem;
   margin-right: 0.5rem;
+}
+
+fieldset {
+  border: solid 1px gray;
+  padding-top: 5px;
+  padding-right: 12px;
+  padding-bottom: 10px;
+  padding-left: 12px;
+}
+legend {
+  float: none;
+  font-size: 1.1em !important;
+  text-align: left !important;
+  width: auto;
+  padding: 5px 15px;
+  border: 1px solid #DBDEE0 !important;
+  font-weight: 500;
 }

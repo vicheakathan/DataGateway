@@ -41,6 +41,8 @@ import { PaginatorModule } from "primeng/paginator";
 import {BadgeModule} from 'primeng/badge';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {CheckboxModule} from 'primeng/checkbox';
+import {FieldsetModule} from 'primeng/fieldset';
+import { TabViewModule } from 'primeng/tabview';
 
 
 // app
@@ -50,6 +52,7 @@ import { CompanyComponent } from './pages/company/company.component';
 import { TenantComponent } from './pages/tenant/tenant.component';
 import { TransactionComponent } from './pages/transaction/transaction.component';
 import { TransactionHistoryComponent } from './pages/transaction-history/transaction-history.component';
+import { SettingComponent } from './pages/setting/setting.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +61,8 @@ import { TransactionHistoryComponent } from './pages/transaction-history/transac
         CompanyComponent,
         TenantComponent,
         TransactionComponent,
-        TransactionHistoryComponent
+        TransactionHistoryComponent,
+        SettingComponent
     ],
     imports: [
         AppRoutingModule,
@@ -89,7 +93,9 @@ import { TransactionHistoryComponent } from './pages/transaction-history/transac
         PaginatorModule,
         BadgeModule,
         SplitButtonModule,
-        CheckboxModule
+        CheckboxModule,
+        FieldsetModule,
+        TabViewModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

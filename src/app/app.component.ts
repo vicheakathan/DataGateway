@@ -4,20 +4,23 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { filter, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { SettingsService } from './services/settings.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-
     constructor(
         private primengConfig: PrimeNGConfig,
         private router: Router, 
         private activatedRoute: ActivatedRoute, 
         private titleService: Title,
         public authService: AuthService,
-    ) { 
+        private _setting: SettingsService
+    ) {
+        const favIcon  = document.querySelector('#favIcon') as HTMLLinkElement;
+        
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
             map(() => {
@@ -35,7 +38,10 @@ export class AppComponent implements OnInit {
             })
         ).subscribe( (data: any) => {
             if (data) {
-                this.titleService.setTitle(data + ' - DataGateway');
+                this._setting.getSettings().then(response => {
+                    this.titleService.setTitle(data + ' - ' + response[0].siteTitle);
+                    favIcon.href = 'assets/images/' + response[0].icon; 
+                });
             }
         });
     }
