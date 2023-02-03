@@ -13,6 +13,13 @@ import { AuthGuard } from './helpers/auth.guard';
                     { 
                         path: '', 
                         data: {
+                            title: 'Dashboard'
+                        }, 
+                        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardMudule) 
+                    },
+                    { 
+                        path: 'company', 
+                        data: {
                             title: 'Company'
                         }, 
                         loadChildren: () => import('./pages/company/company.module').then(m => m.CompanyMudule) 

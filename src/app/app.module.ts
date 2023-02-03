@@ -43,6 +43,9 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {CheckboxModule} from 'primeng/checkbox';
 import {FieldsetModule} from 'primeng/fieldset';
 import { TabViewModule } from 'primeng/tabview';
+import {ChartModule} from 'primeng/chart';
+import { NgChartsModule } from 'ng2-charts';
+
 
 
 // app
@@ -53,6 +56,7 @@ import { TenantComponent } from './pages/tenant/tenant.component';
 import { TransactionComponent } from './pages/transaction/transaction.component';
 import { TransactionHistoryComponent } from './pages/transaction-history/transaction-history.component';
 import { SettingComponent } from './pages/setting/setting.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +66,8 @@ import { SettingComponent } from './pages/setting/setting.component';
         TenantComponent,
         TransactionComponent,
         TransactionHistoryComponent,
-        SettingComponent
+        SettingComponent,
+        DashboardComponent
     ],
     imports: [
         AppRoutingModule,
@@ -95,7 +100,9 @@ import { SettingComponent } from './pages/setting/setting.component';
         SplitButtonModule,
         CheckboxModule,
         FieldsetModule,
-        TabViewModule
+        TabViewModule,
+        ChartModule,
+        NgChartsModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

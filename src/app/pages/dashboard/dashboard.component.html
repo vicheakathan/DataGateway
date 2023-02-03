@@ -1,0 +1,101 @@
+<div class="loading-container" *ngIf="isLoadingResults">
+    <div class="loading-speeding-wheel"></div>
+</div>
+
+<div class="grid atk_margin_bottom_15">
+    <!-- <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart> -->
+    <!-- <div class="col-6 xl:col-6">
+        <div class="card" >
+            <h5>Sales Overview</h5>
+            <div *ngIf="weatherForecast">
+                <canvas 
+                    baseChart
+                    [datasets]="weatherForecast.weatherList"
+                    [labels]="weatherForecast.chartLabels"
+                    [options]="chartOptions"  
+                    [legend]="chartLegend"
+                    [type]="chartType"
+                    >
+                </canvas>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-12 xl:col-12">
+        <div class="card" >
+            <h5>Charts Overview</h5>
+            <div *ngIf="ChartsDataGateway">
+                <canvas 
+                    baseChart
+                    [datasets]="ChartsDataGateway.saleSummary"
+                    [labels]="ChartsDataGateway.chartLabels"
+                    [options]="chartOptions"  
+                    [legend]="chartLegend"
+                    [type]="chartType"
+                >
+                </canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <h5>Sales Overview</h5>
+            <span style="position: absolute;"><p-calendar 
+                [inputStyle]="{'display':'none'}" 
+                #calendar 
+                [(ngModel)]="rangeDates" 
+                (onSelect)="onDateChange($event)"
+                (onChange)="onDateChange($event)"
+            >
+            </p-calendar></span>
+            <p-table #dt [value]="dashboard" [lazy]="true" (onLazyLoad)="OnLoadDataSource($event)" dataKey="id"
+            [globalFilterFields]="['date']" responsiveLayout="scroll" [rowHover]="true">
+            
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th >Date <i class="pi pi-calendar atk_pointer" style="margin-left:5px" (click)="openCalendar()"></i>  </th>
+                        <th>Tenants</th>
+                        <th>Sales</th>
+                        <th>SubTotal</th>
+                        <th>Discount</th>
+                        <th>Vat</th>
+                        <th>GrandTotal</th>
+                        <th>Amount Before Vat Discount</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-dashboard>
+                    <tr>
+                        <td style="min-width:5rem;">
+                            <span class="p-column-title">Date</span>
+                            {{ dashboard.orderDateTime | date : 'd/MM/yyyy' }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.tenant }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.sales }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.subTotal | currency: dashboard.currency }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.discount | currency: dashboard.currency }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.vat | currency: dashboard.currency }}
+                        </td>
+                        <td style="min-width:5rem;">
+                           {{ dashboard.grandTotal | currency: dashboard.currency }}
+                        </td>
+                        <td style="min-width:5rem;">
+                            {{ dashboard.amount_before_vat_discount | currency: dashboard.currency }}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <tr *ngIf="dashboard == 0"><td colspan="10">No record found.</td></tr>
+                </ng-template>
+            </p-table>
+        </div>
+	</div>
+</div>

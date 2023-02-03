@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
     loginForm: any = FormGroup;
     isLoadingResults: boolean = false;
     image_src: any = 'assets/images/logo.png';
+    toggleEyes:boolean = false;
+    showPassword: any = "password";
     constructor(
         public layoutService: LayoutService,
         public formBuilder: FormBuilder,
@@ -64,6 +66,16 @@ export class LoginComponent implements OnInit {
                     this.isLoadingResults = false;
                 });
             }, 100);
+        }
+    }
+
+    toggleShowPassword() {
+        if (this.showPassword == "password") {
+            this.showPassword = "text";
+            this.toggleEyes = true;
+        } else {
+            this.showPassword = "password";
+            this.toggleEyes = false;
         }
     }
 }
