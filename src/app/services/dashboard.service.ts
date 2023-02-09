@@ -53,8 +53,13 @@ export class DashboardService {
         .then(response => {return response;});
   }
 
-  saleSummary() {
-    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth', this.HTTP_OPTIONS)
+  saleSummary(date: any) {
+    var dateFilter = "";
+    if (date != "")
+      dateFilter = date;
+
+    const param = "?date=" + dateFilter;
+    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
         .toPromise()
         .then(response => {return response;});
   }

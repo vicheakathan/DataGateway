@@ -3,12 +3,10 @@
 </div>
 
 <div class="grid atk_margin_bottom_15">
-    <!-- <div class="col-12 xl:col-12">
-        <div class="card" >
-            <h5>Charts Overview</h5>
-            <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
-        </div>
-    </div> --> 
+    <div class="col-12 xl:col-12" style="display: flex; justify-content: left;">
+        <p-calendar [(ngModel)]="dateFilter" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Select Date" #daterang (onSelect)="onFilterByDate($event)"></p-calendar>
+        <p-dropdown [options]="itemTenant" id="tenant" placeholder="All Tenants" optionLabel="name" optionValue="id" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
+    </div>
     
     <div class="col-12 xl:col-12">
         <div class="card" >
