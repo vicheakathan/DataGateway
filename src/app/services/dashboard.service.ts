@@ -58,5 +58,5 @@ export class DashboardService {
         .toPromise()
         .then(response => {return response;});
   }
-  
+
 }

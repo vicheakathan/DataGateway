@@ -8,7 +8,6 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import * as moment from 'moment';
 import { Calendar } from 'primeng/calendar';
 import { Table } from 'exceljs';
-import {WeatherForecast} from 'src/app/models/dashboard';
 
 class ImageSnippet {
     constructor(public src: string, public file: File) {}
@@ -32,13 +31,13 @@ export class DashboardComponent implements OnInit {
     @ViewChild("calendar") private calendar: any;
     @ViewChild('dt', { static: true }) dt!: any;
 
-    weatherForecast: any;
     chartLegend: boolean = true;  
-    chartType: any = 'line';
+    chartType: any = 'bar';
     chartOptions: any;
     ChartsDataGateway: any;
-
-
+    Test: any;
+    basicOptions: any;
+    basicData: any;
     constructor(
         public layoutService: LayoutService,
         private _messageService: MessageService,
@@ -48,15 +47,11 @@ export class DashboardComponent implements OnInit {
     ) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
         });
-
-        this._dashboard.weather().then(res => {
-            this.weatherForecast = res;
-            // this.weatherForecast.datasets.backgroundColor = 
-        });
-
+        this.isLoadingResults = false;
         this._dashboard.saleSummary().then(res => {
             this.ChartsDataGateway = res;
         });
+       
     }
   
     ngOnInit(): void {
@@ -147,6 +142,23 @@ export class DashboardComponent implements OnInit {
                 }
             }
         };
+
+        this.basicData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'My First dataset',
+                    backgroundColor: '#42A5F5',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'My Second dataset',
+                    backgroundColor: '#FFA726',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+        
         
     }
 
