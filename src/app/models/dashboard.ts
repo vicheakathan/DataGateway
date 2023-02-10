@@ -23,7 +23,7 @@ export interface WeatherForecast {
 
 export interface SaleSummary {  
     data: Array<number>;  
-    label: string;  
+    label: string; 
 }  
   
 export interface ChartsDataGateway {  

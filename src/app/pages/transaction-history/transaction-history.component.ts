@@ -72,7 +72,7 @@ export class TransactionHistoryComponent implements OnInit {
 
   ngOnInit() {
     if (!this._authService.isLoggedIn)
-      this._router.navigate(['/login']);
+      window.location.href = '/login';
   }
 
   paginate(event: any): any {

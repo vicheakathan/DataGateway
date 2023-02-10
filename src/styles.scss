@@ -127,7 +127,9 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
   padding:7rem 2rem 2rem 2rem;
 }
 
-
+body.loading-container {
+  overflow: hidden !important;
+}
 .loading-container {
   position: fixed;
   width: 100%;
@@ -136,12 +138,12 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
   top: 0;
   bottom: 0;
   // background-color: rgb(64 81 98 / 46%);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(255, 255, 255);
   z-index: 9999;
   justify-content: center;
   align-items: center;
   display: flex;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .loading-speeding-wheel {
@@ -162,6 +164,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext{
   -ms-animation: loading-spin 500ms infinite linear;
   -webkit-animation: loading-spin 500ms infinite linear;
   -moz-animation: loading-spin 500ms infinite linear;
+  overflow: hidden !important;
 }
 @keyframes loading-spin {
   100% {
@@ -520,4 +523,10 @@ legend {
   padding: 5px 15px;
   border: 1px solid #DBDEE0 !important;
   font-weight: 500;
+}
+
+.atk_dashboard{
+  background-color: unset;
+  border: unset;
+  padding:0
 }

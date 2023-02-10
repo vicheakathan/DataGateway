@@ -85,7 +85,7 @@ export class TenantComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this._authService.isLoggedIn)
-        this._router.navigate(['/login']);
+      window.location.href = '/login';
 
     this._tenantService.getAllCompany().subscribe(
       response => {

@@ -27,13 +27,13 @@
     </div>
    
     <div #topbarmenu class="atk_layout layout-topbar-menus" [ngClass]="{'layout-topbar-menu-mobile-active atk_layout_active': layoutService.state.profileSidebarVisible}" style="align-items: center;">
-        <button class="p-link layout-topbar-button" (click)="logout()">
-            <i class="pi pi-sign-out"></i>
-            <span style="display:block;font-weight:500">Logout</span>
-        </button>
         <button class="p-link layout-topbar-button" [routerLink]="'/settings'">
             <i class="pi pi-cog"></i>
             <span style="display:block;font-weight:500">Settings</span>
+        </button>
+        <button class="p-link layout-topbar-button" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span style="display:block;font-weight:500">Logout</span>
         </button>
     </div>
 </div>

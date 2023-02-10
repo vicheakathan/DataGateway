@@ -53,15 +53,32 @@ export class DashboardService {
         .then(response => {return response;});
   }
 
-  saleSummary(date: any) {
+  saleSummary(date: any, tenant: any) {
     var dateFilter = "";
+    var tenantFilter = "";
     if (date != "")
       dateFilter = date;
+    if (tenant != "" && tenant != null)
+      tenantFilter = "&tenant=" + tenant;
 
-    const param = "?date=" + dateFilter;
+    const param = "?date=" + dateFilter + tenantFilter;
     return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
         .toPromise()
         .then(response => {return response;});
+  }
+
+  getSaleSummary(date: any, tenant: any): Observable<any> {
+    var dateFilter = "";
+    var tenantFilter = "";
+    if (date != "")
+      dateFilter = date;
+    if (tenant != "" && tenant != null)
+      tenantFilter = "&tenant=" + tenant;
+
+    const param = "?date=" + dateFilter + tenantFilter;
+    
+    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
+      .pipe(catchError(DashboardService.handleError));
   }
 
 }

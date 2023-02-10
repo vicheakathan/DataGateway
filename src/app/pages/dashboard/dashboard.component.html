@@ -3,14 +3,17 @@
 </div>
 
 <div class="grid atk_margin_bottom_15">
-    <div class="col-12 xl:col-12" style="display: flex; justify-content: left;">
-        <p-calendar [(ngModel)]="dateFilter" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="Select Date" #daterang (onSelect)="onFilterByDate($event)"></p-calendar>
-        <p-dropdown [options]="itemTenant" id="tenant" placeholder="All Tenants" optionLabel="name" optionValue="id" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
-    </div>
-    
     <div class="col-12 xl:col-12">
-        <div class="card" >
-            <h5>Charts Overview</h5>
+        <div class="card">
+            <p-toolbar styleClass="mb-4 atk_dashboard">
+                <div class="p-toolbar-group-start">
+                    <h5>Charts Overview</h5>
+                </div>
+                <div class="p-toolbar-group-end">
+                    <p-calendar [(ngModel)]="dateFilter" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="All Date" #daterang (onSelect)="onFilterByDate($event)"></p-calendar>
+                    <p-dropdown [options]="itemTenant" id="tenant" placeholder="All Tenants" optionLabel="name" optionValue="id" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
+                </div>
+            </p-toolbar>
             <div *ngIf="ChartsDataGateway">
                 <canvas 
                     baseChart
@@ -41,7 +44,8 @@
             
                 <ng-template pTemplate="header">
                     <tr>
-                        <th >Date <i class="pi pi-calendar atk_pointer" style="margin-left:5px" (click)="openCalendar()"></i>  </th>
+                        <!-- <th >Date <i class="pi pi-calendar atk_pointer" style="margin-left:5px" (click)="openCalendar()"></i>  </th> -->
+                        <th>Date</th>
                         <th>Tenants</th>
                         <th>Sales</th>
                         <th>SubTotal</th>

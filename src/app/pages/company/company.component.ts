@@ -61,7 +61,7 @@ export class CompanyComponent implements OnInit {
   
     ngOnInit(): void {
         if (!this._authService.isLoggedIn)
-            this._router.navigate(['/login']);
+            window.location.href = '/login';
     }
 
     OnLoadDataSource(event: any) {

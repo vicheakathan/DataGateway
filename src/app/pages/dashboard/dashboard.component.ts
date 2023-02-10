@@ -35,9 +35,10 @@ export class DashboardComponent implements OnInit {
     chartType: any = 'bar';
     chartOptions: any;
     ChartsDataGateway: any;
-    Test: any;
-    basicOptions: any;
+
     basicData: any;
+    basicOptions: any;
+
     constructor(
         public layoutService: LayoutService,
         private _messageService: MessageService,
@@ -54,14 +55,38 @@ export class DashboardComponent implements OnInit {
                 this.itemTenant = res.data;
             }
         );
-        this.dateFilter = moment(this.today).format('MM/DD/YYYY');
+
+        var yesterday = new Date(this.today.setDate(new Date().getDate()-1));
+        this.dateFilter = moment(yesterday).format('MM/DD/YYYY');
     }
   
     ngOnInit(): void {
         if (!this._authService.isLoggedIn)
             window.location.href = '/login';
 
-        this.initChart();
+        this.initChartData("", "");
+
+        this.basicData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'My First dataset',
+                    backgroundColor: '#42A5F5',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'My Second dataset',
+                    backgroundColor: '#FFA726',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+                ,
+                {
+                    label: 'My Third dataset',
+                    backgroundColor: '#DCDF1E',
+                    data: [28, 48, 40, 19, 86, 34, 200]
+                }
+            ]
+        };
     }
 
     OnLoadDataSource(event: any) {
@@ -87,19 +112,19 @@ export class DashboardComponent implements OnInit {
     onFilterByTenant(event: any) {
         if (event.value != null || event.value !== undefined) {
           this.tenantId = event.value;
-          this.dt.filterGlobal(event, 'contains');
+          this.initChartData("", this.tenantId);
         }
     }
 
     onFilterByDate(event:any) {
         this.dateFilter = moment(event).format('MM/DD/YYYY');
-        this.initChart();
+        this.initChartData("", "");
     }
 
-    initChart() {
+    initChartData(date: any, tenant: any) {
         this.isLoadingResults = true;
         setTimeout(() => {
-            this._dashboard.saleSummary(this.dateFilter).then(res => {
+            this._dashboard.getSaleSummary(this.dateFilter, tenant).subscribe(res => {
                 this.ChartsDataGateway = res;
                 this.isLoadingResults = false;
             });
