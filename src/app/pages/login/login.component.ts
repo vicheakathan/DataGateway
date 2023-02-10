@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         }
         
         if(this.submitted) {
-            this.isLoadingResults = true;
+            // this.isLoadingResults = true;
             setTimeout(() => {
                 this.authService.login(this.loginForm.value)
                 .subscribe(() => {
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
                 }, (err: any) => {
                     if (err)
                         this.isIncorrectUsernamePassword = true;
-                    this.isLoadingResults = false;
+                    // this.isLoadingResults = false;
                 });
             }, 100);
         }
