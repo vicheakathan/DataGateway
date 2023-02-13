@@ -29,4 +29,9 @@ export interface SaleSummary {
 export interface ChartsDataGateway {  
     saleSummary?: [];  
     chartLabels?: any;  
-} 
+}
+
+export interface PieChartsDataGateway {  
+    countries: any;  
+    population: any;  
+}  

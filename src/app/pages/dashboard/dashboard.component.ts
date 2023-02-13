@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import * as moment from 'moment';
 import { TenantService } from 'src/app/services/tenant.service';
+import { PieChartsDataGateway } from 'src/app/models/dashboard';
 
 
 @Component({
@@ -21,7 +22,6 @@ export class DashboardComponent implements OnInit {
     date: any ;
     dashboard: any;
     chartData: any;
-    // chartOptions: any;
     data: any;
     today = new Date();
     rangeDates!: Date[];
@@ -32,9 +32,11 @@ export class DashboardComponent implements OnInit {
     tenantId: any;
     itemTenant: any = [];
     chartLegend: boolean = true;  
-    chartType: any = 'bar';
+    chartType: any = 'line';
+    chartType2: any = 'pie';
     chartOptions: any;
     ChartsDataGateway: any;
+    PieChartsDataGateway: any;
 
     basicData: any;
     basicOptions: any;
@@ -66,6 +68,10 @@ export class DashboardComponent implements OnInit {
 
         this.initChartData("", "");
 
+        // this._dashboard.getSaleSummaryByMonth().subscribe(res => {
+        //     this.PieChartsDataGateway = res;
+        // });
+
         this.basicData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -96,7 +102,7 @@ export class DashboardComponent implements OnInit {
             this.dashboard = res;
             this.isLoadingResults = false;
           });
-      }, 1000);
+      }, 3000);
     }
 
     openCalendar() {
@@ -124,10 +130,10 @@ export class DashboardComponent implements OnInit {
     initChartData(date: any, tenant: any) {
         this.isLoadingResults = true;
         setTimeout(() => {
-            this._dashboard.getSaleSummary(this.dateFilter, tenant).subscribe(res => {
+            this._dashboard.getSaleSummaryByDay(this.dateFilter, tenant).subscribe(res => {
                 this.ChartsDataGateway = res;
                 this.isLoadingResults = false;
             });
-        }, 1000);
+        }, 3000);
     }
 }

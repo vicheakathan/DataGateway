@@ -67,7 +67,7 @@ export class DashboardService {
         .then(response => {return response;});
   }
 
-  getSaleSummary(date: any, tenant: any): Observable<any> {
+  getSaleSummaryByDay(date: any, tenant: any): Observable<any> {
     var dateFilter = "";
     var tenantFilter = "";
     if (date != "")
@@ -76,6 +76,20 @@ export class DashboardService {
       tenantFilter = "&tenant=" + tenant;
 
     const param = "?date=" + dateFilter + tenantFilter;
+    
+    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybyday' + param, this.HTTP_OPTIONS)
+      .pipe(catchError(DashboardService.handleError));
+  }
+
+  getSaleSummaryByMonth(): Observable<any> {
+    var dateFilter = "";
+    var tenantFilter = "";
+    // if (date != "")
+    //   dateFilter = date;
+    // if (tenant != "" && tenant != null)
+    //   tenantFilter = "&tenant=" + tenant;
+
+    const param = "";
     
     return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
       .pipe(catchError(DashboardService.handleError));
