@@ -3,16 +3,38 @@
 </div>
 
 <div class="grid atk_margin_bottom_15">
-    <!-- <div class="col-6 xl:col-6">
+    <div class="col-6 xl:col-6">
         <div class="card">
             <p-toolbar styleClass="mb-4 atk_dashboard">
                 <div class="p-toolbar-group-start">
-                    <h5>Charts Overview</h5>
+                    <h5>Monthly Sales</h5>
                 </div>
             </p-toolbar>
-            <p-chart type="pie" [data]="data" [options]="chartOptions"  [style]="{'width': '40%'}"></p-chart>
+            <!-- <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart> -->
+            <div *ngIf="SaleSummaryMonthly">
+                <canvas 
+                    baseChart
+                    [datasets]="SaleSummaryMonthly.saleSummary"
+                    [labels]="SaleSummaryMonthly.chartLabels"
+                    [options]="chartOptions"
+                    [legend]="chartLegend"
+                    [type]="SaleSummaryMonthly.saleSummary.type"
+                >
+                </canvas>
+            </div>
         </div>
-    </div> -->
+    </div>
+    <div class="col-6 xl:col-6">
+        <div class="card">
+            <p-toolbar styleClass="mb-4 atk_dashboard">
+                <div class="p-toolbar-group-start">
+                    <h5>Weekly Sales</h5>
+                </div>
+            </p-toolbar>
+            <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+        </div>
+    </div>
+
     <div class="col-12 xl:col-12">
         <div class="card">
             <p-toolbar styleClass="mb-4 atk_dashboard">
@@ -37,6 +59,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-12">
         <div class="card">
             <h5>Sales Overview</h5>

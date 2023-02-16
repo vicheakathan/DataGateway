@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import * as moment from 'moment';
 import { TenantService } from 'src/app/services/tenant.service';
-import { PieChartsDataGateway } from 'src/app/models/dashboard';
 
 
 @Component({
@@ -33,13 +32,11 @@ export class DashboardComponent implements OnInit {
     itemTenant: any = [];
     chartLegend: boolean = true;  
     chartType: any = 'line';
-    chartType2: any = 'pie';
     chartOptions: any;
     ChartsDataGateway: any;
-    PieChartsDataGateway: any;
-
     basicData: any;
     basicOptions: any;
+    SaleSummaryMonthly: any;
 
     constructor(
         public layoutService: LayoutService,
@@ -60,6 +57,60 @@ export class DashboardComponent implements OnInit {
 
         var yesterday = new Date(this.today.setDate(new Date().getDate()-1));
         this.dateFilter = moment(yesterday).format('MM/DD/YYYY');
+
+        this._dashboard.SaleSummaryMonthly().subscribe(
+            res => {
+                this.SaleSummaryMonthly = res;
+            }
+        );
+
+        this.data = {
+            labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            datasets: [{
+                type: 'line',
+                label: 'Dataset 1',
+                borderColor: '#42A5F5',
+                borderWidth: 2,
+                fill: false,
+                data: [
+                    50,
+                    25,
+                    12,
+                    48,
+                    56,
+                    76,
+                    42
+                ]
+            }, {
+                type: 'bar',
+                label: 'Dataset 2',
+                backgroundColor: '#66BB6A',
+                data: [
+                    21,
+                    84,
+                    24,
+                    75,
+                    37,
+                    65,
+                    34
+                ],
+                borderColor: 'white',
+                borderWidth: 2
+            }, {
+                type: 'bar',
+                label: 'Dataset 3',
+                backgroundColor: '#FFA726',
+                data: [
+                    41,
+                    52,
+                    24,
+                    74,
+                    23,
+                    21,
+                    32
+                ]
+            }]
+        };
     }
   
     ngOnInit(): void {
@@ -67,38 +118,12 @@ export class DashboardComponent implements OnInit {
             window.location.href = '/login';
 
         this.initChartData("", "");
-
-        // this._dashboard.getSaleSummaryByMonth().subscribe(res => {
-        //     this.PieChartsDataGateway = res;
-        // });
-
-        this.basicData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'My First dataset',
-                    backgroundColor: '#42A5F5',
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'My Second dataset',
-                    backgroundColor: '#FFA726',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-                ,
-                {
-                    label: 'My Third dataset',
-                    backgroundColor: '#DCDF1E',
-                    data: [28, 48, 40, 19, 86, 34, 200]
-                }
-            ]
-        };
     }
 
     OnLoadDataSource(event: any) {
       this.isLoadingResults = true;
       setTimeout(() => {
-          this._dashboard.dashboard(this.date).then(res => {
+          this._dashboard.SaleSummaryDailySale(this.date).then(res => {
             this.dashboard = res;
             this.isLoadingResults = false;
           });
@@ -130,7 +155,7 @@ export class DashboardComponent implements OnInit {
     initChartData(date: any, tenant: any) {
         this.isLoadingResults = true;
         setTimeout(() => {
-            this._dashboard.getSaleSummaryByDay(this.dateFilter, tenant).subscribe(res => {
+            this._dashboard.SaleSummaryPerMonth(this.dateFilter, tenant).subscribe(res => {
                 this.ChartsDataGateway = res;
                 this.isLoadingResults = false;
             });

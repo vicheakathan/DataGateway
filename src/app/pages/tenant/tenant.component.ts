@@ -44,6 +44,8 @@ export class TenantComponent implements OnInit {
     isSelectedTenant: TenantModel[] = [];
     companyId: any = [];
     isDisabled: boolean = true;
+    showPassword: any = "password";
+    toggleEyes:boolean = false;
     @ViewChild('dt', { static: true }) dt!: Table;
     @ViewChild('searchValue') searchValue!: ElementRef;
     @ViewChild('paginator', { static: true }) paginator!: Paginator;
@@ -291,6 +293,7 @@ export class TenantComponent implements OnInit {
     this.tenantDailog = false;
     this.tenantDailogChangePassword = false;
     this.submitted = false;
+    this.toggleEyes = false;
     // this.dt.reset();
   }
 
@@ -413,5 +416,15 @@ export class TenantComponent implements OnInit {
   
   OnChangePassword(value: any) {
     this.tenantModelDialog.other = value;
+  }
+
+  toggleShowPassword() {
+    if (this.showPassword == "password") {
+        this.showPassword = "text";
+        this.toggleEyes = true;
+    } else {
+        this.showPassword = "password";
+        this.toggleEyes = false;
+    }
   }
 }

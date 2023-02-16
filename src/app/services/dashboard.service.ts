@@ -36,7 +36,7 @@ export class DashboardService {
     return throwError(error.error);
   }
 
-  dashboard(date: any) {
+  SaleSummaryDailySale(date: any) {
     var currentDate = "";
     if (date != null)
       currentDate = "?date=" + date;
@@ -47,27 +47,7 @@ export class DashboardService {
         .then(response => {return response;});
   }
 
-  weather() {
-    return this.http.get<any>(API_URL + 'api/dashboard/weather', this.HTTP_OPTIONS)
-        .toPromise()
-        .then(response => {return response;});
-  }
-
-  saleSummary(date: any, tenant: any) {
-    var dateFilter = "";
-    var tenantFilter = "";
-    if (date != "")
-      dateFilter = date;
-    if (tenant != "" && tenant != null)
-      tenantFilter = "&tenant=" + tenant;
-
-    const param = "?date=" + dateFilter + tenantFilter;
-    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
-        .toPromise()
-        .then(response => {return response;});
-  }
-
-  getSaleSummaryByDay(date: any, tenant: any): Observable<any> {
+  SaleSummaryPerMonth(date: any, tenant: any): Observable<any> {
     var dateFilter = "";
     var tenantFilter = "";
     if (date != "")
@@ -77,21 +57,12 @@ export class DashboardService {
 
     const param = "?date=" + dateFilter + tenantFilter;
     
-    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybyday' + param, this.HTTP_OPTIONS)
+    return this.http.get<any>(API_URL + 'api/dashboard/SaleSummaryPerMonth' + param, this.HTTP_OPTIONS)
       .pipe(catchError(DashboardService.handleError));
   }
 
-  getSaleSummaryByMonth(): Observable<any> {
-    var dateFilter = "";
-    var tenantFilter = "";
-    // if (date != "")
-    //   dateFilter = date;
-    // if (tenant != "" && tenant != null)
-    //   tenantFilter = "&tenant=" + tenant;
-
-    const param = "";
-    
-    return this.http.get<any>(API_URL + 'api/dashboard/salesummarybymonth' + param, this.HTTP_OPTIONS)
+  SaleSummaryMonthly(): Observable<any> {
+    return this.http.get<any>(API_URL + 'api/dashboard/SaleSummaryMonthly', this.HTTP_OPTIONS)
       .pipe(catchError(DashboardService.handleError));
   }
 

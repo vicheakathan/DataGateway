@@ -351,6 +351,9 @@ body.loading-container {
   .atk_width{
     width: 80%;
   }
+  .atk_margin_5{
+    margin:0px 0px 5px 0px !important
+  }
 }
 
 .p-hidden-accessible {
@@ -581,4 +584,14 @@ legend {
   background-color: unset;
   border: unset;
   padding:0
+}
+
+.atk_margin_5{
+  margin:5px;
+}
+
+.atk_eye_color{
+  transform: scale(1.6);
+  margin-right: 1rem;
+  color: var(--primary-color)!important;
 }

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         public formBuilder: FormBuilder,
         public router: Router,
         public authService: AuthService,
-        public localStorageService: LocalStorageService
+        public localStorageService: LocalStorageService,
     ) {
         this.loginForm = new FormGroup({
             username: new FormControl('', Validators.compose([Validators.required])),
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+       
     }
 
     submitted = false;

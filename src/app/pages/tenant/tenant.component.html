@@ -176,7 +176,8 @@
                 </div>
                 <div class="field" [style]="isDisplayNone">
                     <label for="phone">Password</label>
-                    <input type="password" pInputText id="password" [disabled]="isDisabled" [(ngModel)]="tenantModelDialog.password" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}"/>
+                    <input [type]="showPassword" pInputText id="password" [disabled]="isDisabled" [(ngModel)]="tenantModelDialog.password" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}"/>
+                    <span class="p-input-icon-right" style="position: relative;display: inline-block;width:0;margin: 0px 0px 5px 0px;"><i [ngClass]="toggleEyes ? 'pi-eye-slash' : 'pi-eye'" class="ng-tns-c131-0 ng-star-inserted pi atk_eye_color" (click)="toggleShowPassword()"></i></span>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.password">Password is required.</small>
                 </div>
                 <div class="field tk_display_none">
@@ -216,7 +217,8 @@
                 </div>
                 <div class="field">
                     <label for="name">Password</label>
-                    <input type="password" pInputText #password [(ngModel)]="tenantModelDialog.password"  required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}" (change)="OnChangePassword(password.value)"/>
+                    <input [type]="showPassword" pInputText #password [(ngModel)]="tenantModelDialog.password"  required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !tenantModelDialog.password}" (change)="OnChangePassword(password.value)"/>
+                    <span class="p-input-icon-right" style="position: relative;display: inline-block;width:0;margin: 0px 0px 5px 0px;"><i [ngClass]="toggleEyes ? 'pi-eye-slash' : 'pi-eye'" class="ng-tns-c131-0 ng-star-inserted pi atk_eye_color" (click)="toggleShowPassword()"></i></span>
                     <small class="ng-dirty ng-invalid" *ngIf="submitted && !tenantModelDialog.password">Password is required.</small>
                 </div>
                 <div class="field tk_display_none">
