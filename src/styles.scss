@@ -1,4 +1,6 @@
 
+
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -49,6 +51,7 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/demo/styles/badges.scss";
 :root{
   --background_color: #eff3f8;
+  --primary-color: #586fb9;
 }
 .layout-sidebar{
     left:0;
@@ -166,7 +169,7 @@ body.loading-container {
   // -webkit-animation: loading-spin 500ms infinite linear;
   // -moz-animation: loading-spin 500ms infinite linear;
   // overflow: hidden !important;
-  color: #6baddc;
+  color: #586fb9;
   font-size: 45px;
   text-indent: -9999em;
   overflow: hidden;
@@ -594,4 +597,8 @@ legend {
   transform: scale(1.6);
   margin-right: 1rem;
   color: var(--primary-color)!important;
+}
+
+.layout-menu ul a.active-route{
+  color: var(--primary-color)
 }

@@ -47,16 +47,16 @@
       if ($("#theme").is(':checked') == true) {
         localStorage.setItem("theme-url", "assets/layout/styles/theme/bootstrap4-dark-blue/theme.css");
         localStorage.setItem("dark-theme", true);
-        localStorage.setItem("logo-url", "assets/images/logo3.png");
+        // localStorage.setItem("logo-url", "assets/images/logo3.png");
         
       } else {
         localStorage.setItem("theme-url", "assets/layout/styles/theme/lara-light-blue/theme.css");
         localStorage.setItem("dark-theme", false);
-        localStorage.setItem("logo-url", "assets/images/logo.png");
+        // localStorage.setItem("logo-url", "assets/images/logo.png");
       }
 
       document.getElementById('theme-css').href = localStorage.getItem("theme-url");
-      document.getElementById('logo').src = localStorage.getItem("logo-url");
+      // document.getElementById('logo').src = localStorage.getItem("logo-url");
     }
 
     function checkBool(x) {

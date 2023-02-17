@@ -34,8 +34,8 @@ export class AppTopBarComponent {
         if (this.localStorageService.getIsDarkTheme() != null)
             this.checked = this.getBoolean(this.localStorageService.getIsDarkTheme());
 
-        if (this.localStorageService.getLogoUrl() != null)
-            this.image_src = this.localStorageService.getLogoUrl();
+        // if (this.localStorageService.getLogoUrl() != null)
+        //     this.image_src = this.localStorageService.getLogoUrl();
 
         if (this.localStorageService.getUserLogin() != null)
             this.username = this.localStorageService.getUserLogin();
