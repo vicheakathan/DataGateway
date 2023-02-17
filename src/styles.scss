@@ -290,11 +290,11 @@ body.loading-container {
   left: auto;
   z-index: 999999999;
   box-sizing: border-box;
-  color: #3f4b5b;
+  color: var(--primary-color);
   font-size: 40px;
 }
 .scrollToTop:hover{
-  color: #303844;
+  color: #5d6c9b;
 }
 .atk_pointer{
   cursor: pointer;
