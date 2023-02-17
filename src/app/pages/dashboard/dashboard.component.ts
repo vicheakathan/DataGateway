@@ -33,10 +33,11 @@ export class DashboardComponent implements OnInit {
     chartLegend: boolean = true;  
     chartType: any = 'line';
     chartOptions: any;
-    ChartsDataGateway: any;
     basicData: any;
     basicOptions: any;
     SaleSummaryMonthly: any;
+    SaleSummaryWeekly: any;
+    SaleSummaryYearly: any;
 
     constructor(
         public layoutService: LayoutService,
@@ -58,59 +59,17 @@ export class DashboardComponent implements OnInit {
         var yesterday = new Date(this.today.setDate(new Date().getDate()-1));
         this.dateFilter = moment(yesterday).format('MM/DD/YYYY');
 
-        this._dashboard.SaleSummaryMonthly().subscribe(
+        this._dashboard.SaleSummaryYearly().subscribe(
             res => {
-                this.SaleSummaryMonthly = res;
+                this.SaleSummaryYearly = res;
             }
         );
 
-        this.data = {
-            labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            datasets: [{
-                type: 'line',
-                label: 'Dataset 1',
-                borderColor: '#42A5F5',
-                borderWidth: 2,
-                fill: false,
-                data: [
-                    50,
-                    25,
-                    12,
-                    48,
-                    56,
-                    76,
-                    42
-                ]
-            }, {
-                type: 'bar',
-                label: 'Dataset 2',
-                backgroundColor: '#66BB6A',
-                data: [
-                    21,
-                    84,
-                    24,
-                    75,
-                    37,
-                    65,
-                    34
-                ],
-                borderColor: 'white',
-                borderWidth: 2
-            }, {
-                type: 'bar',
-                label: 'Dataset 3',
-                backgroundColor: '#FFA726',
-                data: [
-                    41,
-                    52,
-                    24,
-                    74,
-                    23,
-                    21,
-                    32
-                ]
-            }]
-        };
+        this._dashboard.SaleSummaryWeekly().subscribe(
+            res => {
+                this.SaleSummaryWeekly = res;
+            }
+        );
     }
   
     ngOnInit(): void {
@@ -155,8 +114,8 @@ export class DashboardComponent implements OnInit {
     initChartData(date: any, tenant: any) {
         this.isLoadingResults = true;
         setTimeout(() => {
-            this._dashboard.SaleSummaryPerMonth(this.dateFilter, tenant).subscribe(res => {
-                this.ChartsDataGateway = res;
+            this._dashboard.SaleSummaryMonthly(this.dateFilter, tenant).subscribe(res => {
+                this.SaleSummaryMonthly = res;
                 this.isLoadingResults = false;
             });
         }, 3000);

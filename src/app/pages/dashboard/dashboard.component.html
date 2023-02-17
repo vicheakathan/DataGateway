@@ -7,18 +7,17 @@
         <div class="card">
             <p-toolbar styleClass="mb-4 atk_dashboard">
                 <div class="p-toolbar-group-start">
-                    <h5>Monthly Sales</h5>
+                    <h5>Yearly Charts Overview</h5>
                 </div>
             </p-toolbar>
-            <!-- <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart> -->
-            <div *ngIf="SaleSummaryMonthly">
+            <div *ngIf="SaleSummaryYearly">
                 <canvas 
                     baseChart
-                    [datasets]="SaleSummaryMonthly.saleSummary"
-                    [labels]="SaleSummaryMonthly.chartLabels"
+                    [datasets]="SaleSummaryYearly.saleSummary"
+                    [labels]="SaleSummaryYearly.chartLabels"
                     [options]="chartOptions"
                     [legend]="chartLegend"
-                    [type]="SaleSummaryMonthly.saleSummary.type"
+                    [type]="SaleSummaryYearly.saleSummary.type"
                 >
                 </canvas>
             </div>
@@ -28,29 +27,39 @@
         <div class="card">
             <p-toolbar styleClass="mb-4 atk_dashboard">
                 <div class="p-toolbar-group-start">
-                    <h5>Weekly Sales</h5>
+                    <h5>Weekly Charts Overview</h5>
                 </div>
             </p-toolbar>
-            <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart>
+            <!-- <p-chart type="bar" [data]="data" [options]="chartOptions"></p-chart> -->
+            <div *ngIf="SaleSummaryWeekly">
+                <canvas 
+                    baseChart
+                    [datasets]="SaleSummaryWeekly.saleSummary"
+                    [labels]="SaleSummaryWeekly.chartLabels"
+                    [options]="chartOptions"
+                    [legend]="chartLegend"
+                    [type]="SaleSummaryWeekly.saleSummary.type"
+                >
+                </canvas>
+            </div>
         </div>
     </div>
-
     <div class="col-12 xl:col-12">
         <div class="card">
             <p-toolbar styleClass="mb-4 atk_dashboard">
                 <div class="p-toolbar-group-start">
-                    <h5>Charts Overview</h5>
+                    <h5>Monthly Charts Overview</h5>
                 </div>
                 <div class="p-toolbar-group-end">
                     <!-- <p-calendar [(ngModel)]="dateFilter" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="All Date" #daterang (onSelect)="onFilterByDate($event)"></p-calendar> -->
                     <p-dropdown [options]="itemTenant" id="tenant" placeholder="All Tenants" optionLabel="name" optionValue="name" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
                 </div>
             </p-toolbar>
-            <div *ngIf="ChartsDataGateway">
+            <div *ngIf="SaleSummaryMonthly">
                 <canvas 
                     baseChart
-                    [datasets]="ChartsDataGateway.saleSummary"
-                    [labels]="ChartsDataGateway.chartLabels"
+                    [datasets]="SaleSummaryMonthly.saleSummary"
+                    [labels]="SaleSummaryMonthly.chartLabels"
                     [options]="chartOptions"
                     [legend]="chartLegend"
                     [type]="chartType"
@@ -59,7 +68,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-12">
         <div class="card">
             <h5>Sales Overview</h5>
