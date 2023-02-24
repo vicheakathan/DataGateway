@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
     SaleSummaryMonthly: any;
     SaleSummaryWeekly: any;
     SaleSummaryYearly: any;
+    date9: any;
 
     constructor(
         public layoutService: LayoutService,
