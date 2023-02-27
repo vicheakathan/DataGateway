@@ -51,7 +51,7 @@
                     <h5>Monthly Charts Overview</h5>
                 </div>
                 <div class="p-toolbar-group-end">
-                    <!-- <p-calendar [(ngModel)]="dateFilter" [readonlyInput]="true" inputId="range" class="mr-2 tk_none_border"  placeholder="All Date" #daterang (onSelect)="onFilterByDate($event)"></p-calendar> -->
+                    <p-calendar [(ngModel)]="dateFilter" view="month" #month dateFormat="mm/yy" [readonlyInput]="true" inputId="monthpicker" class="mr-2" placeholder="Months" (onSelect)="onFilterByDate()"></p-calendar>
                     <p-dropdown [options]="itemTenant" id="tenant" placeholder="All Tenants" optionLabel="name" optionValue="name" [showClear]="true" class="mr-2" (onChange)="onFilterByTenant($event)"></p-dropdown>
                 </div>
             </p-toolbar>

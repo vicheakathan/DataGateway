@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
     @ViewChild("calendar") private calendar: any;
     @ViewChild('dt', { static: true }) dt!: any;
     @ViewChild('calendar') private daterang: any;
+    @ViewChild("calendar") private month: any;
     tenantId: any;
     itemTenant: any = [];
     chartLegend: boolean = true;  
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
         );
 
         var yesterday = new Date(this.today.setDate(new Date().getDate()-1));
-        this.dateFilter = moment(yesterday).format('MM/DD/YYYY');
+        this.dateFilter = moment(yesterday).format('YYYY-MM');
 
         this._dashboard.SaleSummaryYearly().subscribe(
             res => {
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
         if (!this._authService.isLoggedIn)
             window.location.href = '/login';
 
-        this.initChartData("", "");
+        this.initChartData(this.dateFilter, "");
     }
 
     OnLoadDataSource(event: any) {
@@ -103,19 +104,18 @@ export class DashboardComponent implements OnInit {
     onFilterByTenant(event: any) {
         if (event.value != null || event.value !== undefined) {
           this.tenantId = event.value;
-          this.initChartData("", this.tenantId);
+          this.initChartData(moment(this.dateFilter).format('YYYY-MM'), this.tenantId);
         }
     }
 
-    onFilterByDate(event:any) {
-        this.dateFilter = moment(event).format('MM/DD/YYYY');
-        this.initChartData("", "");
+    onFilterByDate() {
+        this.initChartData(moment(this.dateFilter).format('YYYY-MM'), this.tenantId);
     }
 
     initChartData(date: any, tenant: any) {
         this.isLoadingResults = true;
         setTimeout(() => {
-            this._dashboard.SaleSummaryMonthly(this.dateFilter, tenant).subscribe(res => {
+            this._dashboard.SaleSummaryMonthly(date, tenant).subscribe(res => {
                 this.SaleSummaryMonthly = res;
                 this.isLoadingResults = false;
             });
