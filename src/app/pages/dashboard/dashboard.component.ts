@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
             }
         );
 
-        var yesterday = new Date(this.today.setDate(new Date().getDate()-1));
+        var yesterday = new Date(this.today.setDate(new Date().getDate()));
         this.dateFilter = moment(yesterday).format('YYYY-MM');
 
         this._dashboard.SaleSummaryYearly().subscribe(
