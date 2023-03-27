@@ -21,4 +21,5 @@ export interface TenantModel {
   vatType?: any;
   currency?: any;
   other?:any;
+  isMallIntegration?: any;
 }

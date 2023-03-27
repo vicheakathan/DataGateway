@@ -36,6 +36,7 @@
                         <th>Company</th>
                         <th style="min-width: 13rem;">Vat</th>
                         <th style="min-width: 10rem;">Currency</th>
+                        <th style="min-width: 10rem;">Mall Integration</th>
                         <th>Actions</th>
                     </tr>
                 </ng-template>
@@ -49,8 +50,8 @@
                             {{ tenantModel.createAt | date : 'd/MM/yyyy, h:mm a' }}
                         </td>
                         <td style="width:20%; min-width:10rem;">
-                            <span class="p-column-title">id</span>
-                            {{ tenantModel.id.toUpperCase() }}
+                            <span style="margin-right: 5px;" class="atk_pointer" pTooltip="Copy to clipboard" tooltipPosition="top" (click)="copyToClipBoard(clip)"><i class="pi pi-clone"></i></span> <span class="p-column-title">id</span>
+                            <span #clip>{{ tenantModel.id.toUpperCase() }}</span>
                         </td>
                         <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">Name</span>
@@ -81,6 +82,14 @@
                                 <div *ngIf="c.currencyName == 'USD'">
                                     <span class="p-badge p-badge-info">{{c.currencyAbv}}</span>
                                 </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngIf="tenantModel.isMallIntegration == true">
+                                <span class="p-badge p-badge-success">Yes</span>
+                            </div>
+                            <div *ngIf="tenantModel.isMallIntegration == false">
+                                <span class="p-badge p-badge-danger">No</span>
                             </div>
                         </td>
                         <td>
@@ -157,6 +166,13 @@
                                 <label [for]="cur.currencyName" style="padding-left: 10px;">{{cur.currencyAbv}}</label>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="address">Mall Integration</label>
+                    <div *ngFor="let mall of MallIntegration" class="field-checkbox">
+                        <p-radioButton [inputId]="mall.name" [required]="true" name="isMallIntegration" [value]="mall.value" [(ngModel)]="tenantModelDialog.isMallIntegration" (onClick)="onChangeMallIntegration(mall)"></p-radioButton>
+                        <label [for]="mall.name" style="padding-left: 10px;">{{mall.name}}</label>
                     </div>
                 </div>
                 <div class="field">

@@ -14,6 +14,7 @@ import { CompanyModel } from 'src/app/models/company';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CompanyService } from 'src/app/services/company.service';
 import { Paginator } from 'primeng/paginator';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   templateUrl: './tenant.component.html',
@@ -72,6 +73,11 @@ export class TenantComponent implements OnInit {
       }
     ];
 
+    MallIntegration: any[] = [
+      { name: "Yes", value: true, checked: true },
+      { name: "No", value: false, checked: false }
+    ];
+
     constructor(
       public layoutService: LayoutService,
       private _messageService: MessageService,
@@ -79,10 +85,11 @@ export class TenantComponent implements OnInit {
       public _authService: AuthService,
       public _router: Router,
       public _companyServie: CompanyService,
+      private _clibBoard: Clipboard
     ) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
         });
-
+        
     }
 
   ngOnInit(): void {
@@ -160,6 +167,7 @@ export class TenantComponent implements OnInit {
       isActive: true,
       isBlocked: true,
       isVerified: true,
+      isMallIntegration: true,
       isDeleted: true,
       vatType: [{
         date: createAt,
@@ -213,6 +221,10 @@ export class TenantComponent implements OnInit {
       currencySign: value.currencySign,
       exchangeRate: value.exchangeRate
     }];
+  }
+
+  onChangeMallIntegration(value: any) {
+    this.tenantModelDialog.isMallIntegration = value.value;
   }
 
   update() {
@@ -302,7 +314,7 @@ export class TenantComponent implements OnInit {
     let worksheet = workbook.addWorksheet("List Tenant");
     var rowHeight = 30;
     // header-----------------
-      let header = ["Date","Tenant Id","Name","Company","Vat","Currency"];
+      let header = ["Date","Tenant Id","Name","Company","Vat","Currency", "Mall Integration"];
       let headerRow = worksheet.addRow(header);
       headerRow.eachCell(cell => {
         cell.font = {
@@ -334,7 +346,9 @@ export class TenantComponent implements OnInit {
       worksheet.getColumn("D").width = 30;
       worksheet.getColumn("E").width = 20;
       worksheet.getColumn("F").width = 20;
+      worksheet.getColumn("G").width = 30;
     // set width----------
+
     var selectData = this.isSelectedTenant;
     var company = this.companyId;
     if (selectData.length > 0) {
@@ -379,7 +393,13 @@ export class TenantComponent implements OnInit {
                     currency = curr[k]['currencyAbv'];
                   }
                 }
+
                 temp.push(currency);
+
+                if (selectData[i]['isMallIntegration'] == true)
+                  temp.push("Yes");
+                else
+                  temp.push("No");
 
                 worksheet.addRow(temp);
 
@@ -404,7 +424,6 @@ export class TenantComponent implements OnInit {
         this.dt.reset();
     } else
         this._messageService.add({ severity: 'error', summary: 'Error', detail: "Please select at least one tenant", life: 2000 });
-
   }
 
   paginate(event: any): any {
@@ -427,4 +446,10 @@ export class TenantComponent implements OnInit {
         this.toggleEyes = false;
     }
   }
+
+  copyToClipBoard(value: any) {
+    var text = value.innerHTML.replace();
+    this._clibBoard.copy(text);
+  }
+ 
 }
